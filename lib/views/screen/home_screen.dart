@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:test01/views/profile_screen.dart';
-import 'package:test01/views/settings_screen.dart';
-import 'package:test01/widgets/navigation_bar.dart';
+import 'package:test01/views/screen/profile_screen.dart';
+import 'package:test01/views/screen/settings_screen.dart';
+import 'package:test01/views/widgets/navigation_bar.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -16,10 +16,17 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    CounterScreen(),
+    const CounterScreen(),
     const ProfileScreen(),
     const SettingsScreen(),
   ];
+
+final List<Widget> _label = [
+  const Text("0"),  // Aquí el String se convierte en un widget usando Text
+  const Text("1"), 
+  const Text("2"), 
+];
+
 
   void _onTabTapped(int index) {
     setState(() {
@@ -31,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Barra de Navegación Inferior Fija'),
+        title: _label[_currentIndex],
       ),
       body: _screens[_currentIndex],
       bottomNavigationBar: CustomNavigationBar(

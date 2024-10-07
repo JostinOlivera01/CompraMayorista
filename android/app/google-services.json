@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "308976433430",
+    "project_id": "compras-mayoristas",
+    "storage_bucket": "compras-mayoristas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308976433430:android:9d730f5f4e7ef05568b837",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP4gNrU1NTvJPTOTqh-Gn2KaOpDSKhQjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308976433430:android:677387b051aecf7868b837",
+        "android_client_info": {
+          "package_name": "com.example.test01"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP4gNrU1NTvJPTOTqh-Gn2KaOpDSKhQjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
