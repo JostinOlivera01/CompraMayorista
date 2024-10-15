@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test01/viewmodels/User_viewmodel/auth_viewmodel.dart';
+import 'package:test01/views/screen/Buyer/inicio_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -15,8 +16,9 @@ class ProfileScreen extends StatelessWidget {
         children: [ElevatedButton(
           onPressed: () {
             authViewModel.signOut();
-            Navigator.pushNamed(context, '/');
-                
+            Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => InicioScreen()),
+            (Route<dynamic> route) => false,);
             },
           child: const Text('Cerrar Sesión'),
             ),],

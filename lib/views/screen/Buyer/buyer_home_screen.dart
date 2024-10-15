@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
-import 'package:test01/views/screen/profile_screen.dart';
+import 'package:provider/provider.dart'; // Asegúrate de tener el paquete Provider instalado
+import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
+import 'package:test01/views/screen/Buyer/profile_screen.dart';
 import 'package:test01/views/screen/settings_screen.dart';
 import 'package:test01/views/widgets/navigation_bar.dart';
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -21,12 +21,11 @@ class _MyHomePageState extends State<MyHomePage> {
     const SettingsScreen(),
   ];
 
-final List<Widget> _label = [
-  const Text("0"),  // Aquí el String se convierte en un widget usando Text
-  const Text("1"), 
-  const Text("2"), 
-];
-
+  final List<Widget> _label = [
+    const Text("0"), // Aquí el String se convierte en un widget usando Text
+    const Text("1"),
+    const Text("2"),
+  ];
 
   void _onTabTapped(int index) {
     setState(() {
@@ -41,14 +40,21 @@ final List<Widget> _label = [
         title: _label[_currentIndex],
       ),
       body: _screens[_currentIndex],
-      bottomNavigationBar: CustomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
+      // Escuchar el rol del UsuarioViewModel
+      bottomNavigationBar: Consumer<UsuarioViewModel>(
+        builder: (context, usuarioViewModel, child) {
+          final role = usuarioViewModel.role ?? ''; 
+          print("JOSTIN 211 $role");// Obtener el rol del ViewModel
+          return CustomNavigationBar(
+            currentIndex: _currentIndex,
+            onTap: _onTabTapped,
+            role: role, // Pasar el rol dinámicamente
+          );
+        },
       ),
     );
   }
 }
-
 
 
 
