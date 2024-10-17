@@ -1,4 +1,5 @@
 
+import 'package:test01/business_logic/models/products_model.dart';
 import 'package:test01/business_logic/models/usuario_model.dart';
 import 'package:test01/business_logic/service/usuarioStoreService.dart';
 
@@ -19,6 +20,10 @@ class UsuarioCaseStore {
 
   Future<UserStoreModel?> getUserByID(String userId){
     return _StoreService.getUserByID(userId);
+  }
+
+    Future<void> createProduct(ProductModel product){
+    return _StoreService.createProducto(product);
   }
 
 

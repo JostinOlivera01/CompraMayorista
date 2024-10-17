@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; // Asegúrate de tener el paquete Provider instalado
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
+import 'package:test01/views/screen/Buyer/homeBuyer_screen.dart';
 import 'package:test01/views/screen/Buyer/profile_screen.dart';
 import 'package:test01/views/screen/settings_screen.dart';
 import 'package:test01/views/widgets/navigation_bar.dart';
+
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -16,7 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const CounterScreen(),
+     ProductListScreen(),
     const ProfileScreen(),
     const SettingsScreen(),
   ];
@@ -114,8 +117,10 @@ class _CounterScreenState extends State<CounterScreen> {
                     onPressed: _disminuirCounter, // Incrementa el contador al presionar
                     child: const Icon(Icons.remove),
                     )
+
               ],
-            )
+            ),
+            
           ],
         ),
       );
