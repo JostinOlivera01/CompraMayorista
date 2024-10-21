@@ -3,19 +3,22 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:test01/business_logic/actions/User_actions/auth_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/product_actions.dart';
+import 'package:test01/business_logic/actions/User_actions/purchaseOrder_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/usuarioStore_actions.dart';
 import 'package:test01/business_logic/service/authService.dart';
+import 'package:test01/business_logic/service/orderService.dart';
 import 'package:test01/business_logic/service/productService.dart';
 import 'package:test01/business_logic/service/usuarioStoreService.dart';
+import 'package:test01/viewmodels/Product_viewmodel/Orders_viewmodel.dart';
 import 'package:test01/viewmodels/Product_viewmodel/Product_viewmodel.dart';
 import 'package:test01/viewmodels/User_viewmodel/auth_viewmodel.dart';
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 import 'package:test01/views/screen/Admin/admin_home_screen.dart';
 import 'package:test01/views/screen/Seller/seller_home_screen.dart';
-import 'views/screen/Buyer/buyer_home_screen.dart';
+import 'views/screen/Buyer/buyer_layout_screen.dart';
 import 'views/screen/Authorization/login_screen.dart';
 import 'views/screen/Authorization/register_screen.dart';
-import 'views/screen/Buyer/inicio_screen.dart';
+import 'views/screen/Authorization/inicio_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +34,12 @@ void main() async {
         ChangeNotifierProvider(
           create: (_) => UsuarioViewModel(UsuarioCaseStore(UsuarioStoreService())),
         ),
-         ChangeNotifierProvider(create: (_) => ProductViewModel(ProductActions(ProductStoreService()))),
+         ChangeNotifierProvider(
+          create: (_) => ProductViewModel(ProductActions(ProductStoreService()))
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OrdersViewmodel(OrderActions(OrderStoreService())),
+        ),
       ],
       child: MyApp(),
     ),

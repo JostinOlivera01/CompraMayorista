@@ -3,7 +3,7 @@ import 'package:provider/provider.dart'; // Asegúrate de tener el paquete Provi
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 import 'package:test01/views/screen/Buyer/homeBuyer_screen.dart';
 import 'package:test01/views/screen/Buyer/profile_screen.dart';
-import 'package:test01/views/screen/settings_screen.dart';
+import 'package:test01/views/screen/Buyer/purchase%20order.dart';
 import 'package:test01/views/widgets/navigation_bar.dart';
 
 
@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _screens = [
      ProductListScreen(),
     const ProfileScreen(),
-    const SettingsScreen(),
+     OrdersScreen(),
   ];
 
   final List<Widget> _label = [

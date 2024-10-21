@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
-import 'package:test01/views/screen/Buyer/buyer_home_screen.dart';
+import 'package:test01/views/screen/Buyer/buyer_layout_screen.dart';
 import 'package:test01/views/screen/Buyer/profile_screen.dart';
 import 'package:test01/views/screen/Seller/createproduct_screen.dart';
 import 'package:test01/views/screen/settings_screen.dart';

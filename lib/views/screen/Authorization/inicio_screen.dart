@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test01/viewmodels/User_viewmodel/auth_viewmodel.dart';
-import 'package:test01/views/screen/Buyer/buyer_home_screen.dart';
+import 'package:test01/views/screen/Buyer/buyer_layout_screen.dart';
 
 class InicioScreen extends StatelessWidget {
   const InicioScreen({super.key});

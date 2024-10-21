@@ -7,12 +7,12 @@ class ProductModel {
   final String description;
   final double price;
   final double? groupPrice;  // Si admite compra grupal
-  final int stock;
+  final int? stock;
   final String? category;
   final String? imageURL;
   final bool groupEnabled;
   final int? groupThreshold;  // Mínimo de compradores para activar compra grupal
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   ProductModel({
     required this.productID,
@@ -21,12 +21,12 @@ class ProductModel {
     required this.description,
     required this.price,
     this.groupPrice,
-    required this.stock,
+    this.stock,
     this.category,
     this.imageURL,
     required this.groupEnabled,
     this.groupThreshold,
-    required this.createdAt,
+    this.createdAt,
   });
 
   Map<String, dynamic> toFirestore() {

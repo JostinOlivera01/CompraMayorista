@@ -9,4 +9,7 @@ class ProductStoreService {
     QuerySnapshot snapshot = await _firestore.collection('Productos').get();
     return snapshot.docs.map((doc) => ProductModel.fromFirestore(doc.data() as Map<String, dynamic>)).toList();
   }
+
+
+  
 }
