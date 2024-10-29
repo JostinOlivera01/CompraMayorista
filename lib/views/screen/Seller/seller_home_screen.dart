@@ -5,11 +5,10 @@ import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 import 'package:test01/views/screen/Buyer/buyer_layout_screen.dart';
 import 'package:test01/views/screen/Buyer/profile_screen.dart';
 import 'package:test01/views/screen/Seller/createproduct_screen.dart';
-import 'package:test01/views/screen/settings_screen.dart';
 import 'package:test01/views/widgets/navigation_bar.dart';
 
 class SellerHomeScreen extends StatefulWidget {
-  SellerHomeScreen({super.key});
+  const SellerHomeScreen({super.key});
 
   @override
   _SellerHomeScreenState createState() => _SellerHomeScreenState();

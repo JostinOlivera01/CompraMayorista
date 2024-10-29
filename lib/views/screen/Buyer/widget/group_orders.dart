@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GroupOrdersScreen extends StatelessWidget {
+  const GroupOrdersScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Center(

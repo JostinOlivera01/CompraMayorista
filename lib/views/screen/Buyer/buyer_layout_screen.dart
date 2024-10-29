@@ -47,7 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: Consumer<UsuarioViewModel>(
         builder: (context, usuarioViewModel, child) {
           final role = usuarioViewModel.role ?? ''; 
-          print("JOSTIN 211 $role");// Obtener el rol del ViewModel
           return CustomNavigationBar(
             currentIndex: _currentIndex,
             onTap: _onTabTapped,

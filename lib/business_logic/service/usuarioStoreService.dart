@@ -19,7 +19,13 @@ class UsuarioStoreService {
   }
 
   Future<void> createProducto(ProductModel product) async {
-    await _firestore.collection('Productos').doc(product.name).set(product.toFirestore());
+  // Generar un nuevo ID para el documento
+  DocumentReference newProductRef = _firestore.collection('Productos').doc();
+  // Crear un nuevo objeto de producto que incluya el id_producto
+  final productData = product.toFirestore();
+  productData['productID'] = newProductRef.id; // Asignar el ID generado al campo id_producto
+  // Guardar el documento en Firestore
+  await newProductRef.set(productData);
   }
 
 

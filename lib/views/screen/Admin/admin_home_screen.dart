@@ -4,7 +4,7 @@ import 'package:test01/views/screen/Buyer/buyer_layout_screen.dart';
 import 'package:test01/views/screen/Buyer/profile_screen.dart';
 import 'package:test01/views/screen/settings_screen.dart';
 class AdminHomeScreen extends StatefulWidget {
-  AdminHomeScreen({super.key});
+  const AdminHomeScreen({super.key});
 
   @override
   _AdminHomeScreenState createState() => _AdminHomeScreenState();
