@@ -11,5 +11,34 @@ class ProductStoreService {
   }
 
 
-  
+
+  Future<List<ProductModel>> getProductsInventoryAll(String emailProveedor) async {
+    try {
+      QuerySnapshot snapshot = await _firestore
+          .collection('Productos')
+          .where('providerID', isEqualTo: emailProveedor)
+          .get();
+
+      return snapshot.docs.map((doc) => ProductModel.fromFirestore(doc.data() as Map<String, dynamic>)).toList();
+    } catch (e) {
+      print('Error obteniendo productos: $e');
+      return []; // Retorna una lista vacía en caso de error
+    }
+  }
+
+
+  // Obtener todos los productos desde Firestore
+  Future<List<ProductModel>> getProductsInventory(String emailProveedor,String codproducto) async {
+    try{
+      QuerySnapshot snapshot = await _firestore
+          .collection('Productos')
+          .where('providerID', isEqualTo: emailProveedor) // Filtrar por el correo del proveedor
+          .where('name', isEqualTo: codproducto) // Filtrar por el código de producto
+          .get();
+      return snapshot.docs.map((doc) => ProductModel.fromFirestore(doc.data() as Map<String, dynamic>)).toList();
+    } catch (e) {
+      print('Error obteniendo productos: $e');
+      return [];
+    }
+  }
 }

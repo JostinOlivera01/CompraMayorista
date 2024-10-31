@@ -22,9 +22,9 @@ class UsuarioViewModel extends ChangeNotifier {
     try {
       final user = await _usercase.getUserByID(userID);
       if (user != null) {
+        email = user.email;
         if (_role != user.role) { // Solo notificar si el rol ha cambiado
           _role = user.role;    
-          email = user.email;
           notifyListeners();
         }
         return _role; // Devolver el rol cargado
@@ -49,19 +49,34 @@ class UsuarioViewModel extends ChangeNotifier {
 
   }
 
-  Future<void> CreateProductUser(String productID, String providerID, String name, String description, double price, bool groupEnabled,  int stock,  DateTime createdAt) async {
-    ProductModel newProductUser = ProductModel(
-      productID: productID, 
-      providerID: providerID, 
-      name: name, 
-      description: description, 
-      price: price, 
-      stock: stock, 
-      groupEnabled: groupEnabled, 
-      createdAt: createdAt);
+Future<void> CreateProductUser(
+  String productID,
+  String providerID,
+  String name,
+  String description,
+  double price,
+  bool groupEnabled,
+  int stock,
+  DateTime createdAt,
+  int minDirectQuantity, //  para cantidad mínima de compra directa
+  int minGroupQuantity,  // cantidad mínima de compra grupal
+) async {
+  ProductModel newProductUser = ProductModel(
+    productID: productID,
+    providerID: providerID,
+    name: name,
+    description: description,
+    price: price,
+    stock: stock,
+    groupEnabled: groupEnabled,
+    createdAt: createdAt,
+    minDirectPurchaseQuantity: minDirectQuantity, // cantidad mínima de compra directa
+    minGroupPurchaseQuantity: minGroupQuantity,   // cantidad mínima de compra grupal
+  );
 
-    await _usercase.createProduct(newProductUser);
-  }
+  await _usercase.createProduct(newProductUser);
+}
+
 
 
 

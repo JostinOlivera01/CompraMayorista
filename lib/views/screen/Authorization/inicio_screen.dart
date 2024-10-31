@@ -42,7 +42,7 @@ class InicioScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  authViewModel.signOut();  // Cerrar sesión
+                  authViewModel.signOut(context);  // Cerrar sesión
                 },
                 child: const Text('Cerrar Sesión'),
               ),

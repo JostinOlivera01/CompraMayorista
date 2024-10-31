@@ -28,8 +28,9 @@ class CustomNavigationBar extends StatelessWidget {
 
     List<BottomNavigationBarItem> sellerItems = [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
-      BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Mis Productos'),
+      BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Mis Anuncios'),
       BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Ventas'),
+      BottomNavigationBarItem(icon: Icon(Icons.inventory), label: 'Inventario'),
     ];
 
     // Escoger los items basados en el rol
@@ -56,6 +57,9 @@ class CustomNavigationBar extends StatelessWidget {
       currentIndex: currentIndex,
       onTap: onTap,
       items: items,
+      backgroundColor: Colors.white,
+      selectedItemColor: Colors.black, 
+      unselectedItemColor: Colors.black
     );
   }
 }

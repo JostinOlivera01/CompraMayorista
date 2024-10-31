@@ -10,21 +10,21 @@ class CreateProductScreen extends StatefulWidget {
 }
 
 class _CreateProductScreenState extends State<CreateProductScreen> {
-
-
   // Controladores para los campos de texto
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _groupPriceController = TextEditingController();
   final TextEditingController _stockController = TextEditingController();
+  
+  // Nuevos controladores para cantidades mínimas
+  final TextEditingController _minDirectQuantityController = TextEditingController();
+  final TextEditingController _minGroupQuantityController = TextEditingController();
 
   bool _groupEnabled = false; // Para habilitar o deshabilitar compra grupal
 
   @override
   Widget build(BuildContext context) {
-
-
     final usuarioViewModel = Provider.of<UsuarioViewModel>(context);
 
     return Scaffold(
@@ -92,6 +92,29 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               const SizedBox(height: 16),
 
+              // Campo de texto para la cantidad mínima de compra directa
+              TextField(
+                controller: _minDirectQuantityController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Cantidad Mínima (Compra Directa)',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Campo de texto para la cantidad mínima de compra grupal (solo si está habilitada)
+              if (_groupEnabled)
+                TextField(
+                  controller: _minGroupQuantityController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Cantidad Mínima (Compra Grupal)',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              const SizedBox(height: 16),
+
               // Checkbox para habilitar la compra grupal
               CheckboxListTile(
                 title: const Text('Habilitar Compra Grupal'),
@@ -121,8 +144,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
     );
   }
 
-
-  // Modificación de la función para recibir el ViewModel
   void _saveProduct(UsuarioViewModel usuarioViewModel) {
     final String name = _nameController.text;
     final String? email = usuarioViewModel.email;
@@ -132,8 +153,12 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         ? double.tryParse(_groupPriceController.text) ?? 0
         : 0;
     final int stock = int.tryParse(_stockController.text) ?? 0;
+    final int minDirectQuantity = int.tryParse(_minDirectQuantityController.text) ?? 1; // Valor por defecto
+    final int minGroupQuantity = _groupEnabled
+        ? int.tryParse(_minGroupQuantityController.text) ?? 1 // Valor por defecto
+        : 1; // Valor por defecto si la compra grupal no está habilitada
 
-    if (name.isEmpty || price <= 0 || stock <= 0) {
+    if (name.isEmpty || price <= 0 || stock <= 0 || minDirectQuantity <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Por favor, completa todos los campos.')),
       );
@@ -141,23 +166,23 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
     }
 
     final DateTime createdAt = DateTime.now(); // Fecha de creación actual
-    //final String providerID = usuarioViewModel.(); // Obtén el userID del proveedor logueado
 
     // Crear el producto usando el ViewModel
     usuarioViewModel.CreateProductUser(
-        '1',
-         email!,
-        name,
-        description,
-        price,
-       _groupEnabled,
-         stock,
-         createdAt,
+      '1',
+      email!,
+      name,
+      description,
+      price,
+      _groupEnabled,
+      stock,
+      createdAt,
+      minDirectQuantity, // Añadir cantidad mínima para compra directa
+      minGroupQuantity,  // Añadir cantidad mínima para compra grupal
     );
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Producto guardado exitosamente.')),
     );
   }
-
 }

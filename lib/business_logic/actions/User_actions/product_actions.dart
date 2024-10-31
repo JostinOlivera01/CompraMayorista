@@ -19,6 +19,30 @@ class ProductActions {
 
 
 
+    // Obtener todos los productos desde Firestore
+  Future<List<ProductModel>> fetchProductsInventaryAll(String email) async {
+    try {
+      return await _productStoreService.getAllProducts();
+    } catch (e) {
+      print('Error en ProductActions: $e');
+      throw Exception( e);
+    }
+  }
+
+
+      // Obtener todos los productos desde Firestore
+  Future<List<ProductModel>> fetchProductsInventary(String email, String codproducto) async {
+    try {
+      return await _productStoreService.getAllProducts();
+    } catch (e) {
+      print('Error en ProductActions: $e');
+      throw Exception( e);
+    }
+  }
+
+
+
+
 
 
 }

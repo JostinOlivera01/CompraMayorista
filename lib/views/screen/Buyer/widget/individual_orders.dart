@@ -15,7 +15,7 @@ class IndividualOrdersScreen extends StatelessWidget {
     final User = Provider.of<UsuarioViewModel>(context);
 
     return FutureBuilder<List<OrderModel>>(
-      future: orderViewModel.fetchOrderInv(User.email!),
+      future: orderViewModel.fetchPaymented(User.email!),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());

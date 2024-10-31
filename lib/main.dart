@@ -16,7 +16,7 @@ import 'package:test01/viewmodels/Product_viewmodel/Product_viewmodel.dart';
 import 'package:test01/viewmodels/User_viewmodel/auth_viewmodel.dart';
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 import 'package:test01/views/screen/Admin/admin_home_screen.dart';
-import 'package:test01/views/screen/Seller/seller_home_screen.dart';
+import 'package:test01/views/screen/Seller/seller_home__layaouscreen.dart';
 import 'views/screen/Buyer/buyer_layout_screen.dart';
 import 'views/screen/Authorization/login_screen.dart';
 import 'views/screen/Authorization/register_screen.dart';

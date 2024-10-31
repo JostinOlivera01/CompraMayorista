@@ -13,6 +13,8 @@ class ProductModel {
   final bool groupEnabled;
   final int? groupThreshold;  // Mínimo de compradores para activar compra grupal
   final DateTime? createdAt;
+  final int? minDirectPurchaseQuantity;  // Cantidad mínima para compra directa
+  final int? minGroupPurchaseQuantity;    // Cantidad mínima para compra grupal
 
   ProductModel({
     required this.productID,
@@ -27,6 +29,8 @@ class ProductModel {
     required this.groupEnabled,
     this.groupThreshold,
     this.createdAt,
+    this.minDirectPurchaseQuantity,
+    this.minGroupPurchaseQuantity,
   });
 
   Map<String, dynamic> toFirestore() {
@@ -43,24 +47,28 @@ class ProductModel {
       'groupEnabled': groupEnabled,
       'groupThreshold': groupThreshold,
       'createdAt': createdAt,
+      'minDirectPurchaseQuantity': minDirectPurchaseQuantity, // Nuevo campo
+      'minGroupPurchaseQuantity': minGroupPurchaseQuantity,   // Nuevo campo
     };
   }
 
-factory ProductModel.fromFirestore(Map<String, dynamic> data) {
-  return ProductModel(
-    productID: data['productID'] ?? '', // Asigna un valor por defecto si es null
-    providerID: data['providerID'] ?? '',
-    name: data['name'] ?? '',
-    description: data['description'] ?? '',
-    price: (data['price'] as num?)?.toDouble() ?? 0.0, // Si el valor es null, asigna 0.0
-    groupPrice: (data['groupPrice'] as num?)?.toDouble(), // Manejo de nulo opcional
-    stock: data['stock'] ?? 0, // Valor por defecto si no hay stock
-    category: data['category'] ?? '', // Manejo de null para categorías
-    imageURL: data['imageURL'] ?? '', // Maneja la imagen del producto
-    groupEnabled: data['groupEnabled'] ?? false, // Valor por defecto para booleanos
-    groupThreshold: data['groupThreshold'] ?? 0, // Valor por defecto si es null
-    createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(), // Manejo de timestamps nulos
-  );
+  factory ProductModel.fromFirestore(Map<String, dynamic> data) {
+    return ProductModel(
+      productID: data['productID'] ?? '',
+      providerID: data['providerID'] ?? '',
+      name: data['name'] ?? '',
+      description: data['description'] ?? '',
+      price: (data['price'] as num?)?.toDouble() ?? 0.0,
+      groupPrice: (data['groupPrice'] as num?)?.toDouble(),
+      stock: data['stock'] ?? 0,
+      category: data['category'] ?? '',
+      imageURL: data['imageURL'] ?? '',
+      groupEnabled: data['groupEnabled'] ?? false,
+      groupThreshold: data['groupThreshold'] ?? 0,
+      createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      minDirectPurchaseQuantity: data['minDirectPurchaseQuantity'] ?? 1, // Valor por defecto
+      minGroupPurchaseQuantity: data['minGroupPurchaseQuantity'] ?? 1,   // Valor por defecto
+    );
+  }
 }
 
-}

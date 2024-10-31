@@ -39,6 +39,19 @@ Future<String?> initiatePayment(String productName, int quantity, double price, 
 }
 
 
+
+  // Método para obtener productos desde Firestore
+  Future<List<OrderModel>> fetchPaymented(String email) async {
+    try {
+      print("ORDEN DE COMPRA $email");
+      return await _orderActions.getPaymentedProducts(email);
+    } catch (e) {
+      print('Error fetching products: $e');
+      return [];
+    }
+  }
+
+
   // Método para obtener productos desde Firestore
   Future<List<OrderModel>> fetchOrderInv(String email) async {
     try {

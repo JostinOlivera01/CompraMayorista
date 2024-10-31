@@ -7,6 +7,18 @@ class OrderActions {
 
   OrderActions(this._orderStoreService);
 
+  //  Obtener HISTORIAL DE COMPRAS 
+  Future<List<OrderModel>> getPaymentedProducts(String email) async {
+    try {
+      print("JOS 55");
+      return await _orderStoreService.getPaymentedProducts(email);
+    } catch (e) {
+      print('Error en ProductActions: $e');
+      throw Exception( e);
+    }
+  }
+
+
   // Obtener todos los productos desde Firestore
   Future<List<OrderModel>> getIndividualOrder(String email) async {
     try {
