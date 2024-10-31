@@ -7,7 +7,9 @@ import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 class RegisterScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  String? selectedRole; // Variable para almacenar el rol seleccionado
+  String? selectedRole;
+
+  RegisterScreen({super.key}); // Variable para almacenar el rol seleccionado
 
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,7 @@ class ProductCard extends StatelessWidget {
   final double rating;
   final VoidCallback onTap; // Agregamos esta propiedad para el callback
 
-  ProductCard({
+  const ProductCard({super.key, 
     required this.productName,
     required this.productImageUrl,
     required this.providerImageUrl,

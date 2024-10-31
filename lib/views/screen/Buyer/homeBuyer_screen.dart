@@ -7,6 +7,8 @@ import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 import 'package:test01/views/screen/Buyer/widget/product_Card.dart';
 
 class ProductListScreen extends StatelessWidget {
+  const ProductListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final productViewModel = Provider.of<ProductViewModel>(context);
@@ -56,7 +58,7 @@ class ProductListScreen extends StatelessWidget {
 class BottomSheetContent extends StatelessWidget {
   final ProductModel product;
 
-  BottomSheetContent({required this.product});
+  const BottomSheetContent({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +86,7 @@ class BottomSheetContent extends StatelessWidget {
               orderViewModel.CreateOrderUser(
                 'orderID23key232',
                 userViewModel.email!,
-                product.name,
+                product.productID,
                 userViewModel.email!,
                 product.name,
                 product.description,

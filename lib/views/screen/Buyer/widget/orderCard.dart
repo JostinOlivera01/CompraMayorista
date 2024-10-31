@@ -8,7 +8,7 @@ class OrderCard extends StatelessWidget {
   final DateTime creationDate; // Fecha de creación de la orden
   final VoidCallback onTap; // Callback para manejar el tap
 
-  OrderCard({
+  const OrderCard({super.key, 
     required this.productName,
     required this.productImageUrl,
     required this.price,
@@ -69,7 +69,7 @@ class OrderCard extends StatelessWidget {
                     status, // Muestra el estado de la orden
                     style: TextStyle(
                       fontSize: 14,
-                      color: status == 'Pagado' ? Colors.green : Colors.red, // Color basado en el estado
+                      color: status == 'approved' ? Colors.green : Colors.red, // Color basado en el estado
                     ),
                   ),
                 ],

@@ -12,38 +12,28 @@ class OrderModel extends ProductModel {
 OrderModel({
   required this.orderID,
   required this.email,
-  required String productID,
-  required String providerID,
-  required String name,
-  required String description,
-  required double price,
-  double? groupPrice,
-  int? stock,
-  String? category,
-  String? imageURL,
-  required bool groupEnabled,
-  int? groupThreshold,
+  required super.productID,
+  required super.providerID,
+  required super.name,
+  required super.description,
+  required super.price,
+  super.groupPrice,
+  super.stock,
+  super.category,
+  super.imageURL,
+  required super.groupEnabled,
+  super.groupThreshold,
   DateTime? createdAt,
   required this.status,
   this.orderCreationDate,
   this.paymentDate,
   this.dueDate,
 }) : super(
-        productID: productID,
-        providerID: providerID,
-        name: name,
-        description: description,
-        price: price,
-        groupPrice: groupPrice,
-        stock: stock,
-        category: category,
-        imageURL: imageURL,
-        groupEnabled: groupEnabled,
-        groupThreshold: groupThreshold,
         createdAt: createdAt ?? DateTime.now(),  // Fecha de creación por defecto
       ); 
 
   // Método para convertir la orden a formato Firestore
+  @override
   Map<String, dynamic> toFirestore() {
     return {
       'orderID': orderID,

@@ -1,13 +1,43 @@
-import 'package:test01/business_logic/actions/User_actions/product_actions.dart';
+import 'package:test01/business_logic/actions/User_actions/mercadoPago_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/purchaseOrder_actions.dart';
 import 'package:test01/business_logic/models/orders_model.dart';
-import 'package:test01/business_logic/models/products_model.dart';
 import 'package:flutter/material.dart';
 
 class OrdersViewmodel extends ChangeNotifier {
   final OrderActions _orderActions;
 
-  OrdersViewmodel(this._orderActions);
+  final OrderPaymentAction _orderPaymentAction;
+
+
+  OrdersViewmodel(this._orderActions, this._orderPaymentAction);
+
+
+
+Future<String?> initiatePayment(String productName, int quantity, double price, String emailComprador, String emailVendedor, String productID, String orderID) async {
+  try {
+    // Convertir el precio de double a int
+    int priceInt = price.toInt();
+
+    print("Iniciando el proceso de pago para $productName, cantidad: $quantity, precio: $priceInt");
+
+    final paymentUrl = await _orderPaymentAction.createPaymentPreference(
+      productName: productName,
+      quantity: quantity,
+      price: priceInt, // Usar el precio convertido
+      emailComprador: emailComprador,
+      emailVendedor: emailVendedor,
+      productID: productID,
+      orderID: orderID
+
+    );
+
+    return paymentUrl;
+  } catch (e) {
+    print('Error en el proceso de pago: $e');
+    return null;
+  }
+}
+
 
   // Método para obtener productos desde Firestore
   Future<List<OrderModel>> fetchOrderInv(String email) async {
@@ -30,9 +60,10 @@ class OrdersViewmodel extends ChangeNotifier {
     }
   }
 
-
+  //CREA ORDEN DE USUARIO SE DUPLICA DE COLLECION PRODUCTO A ORDEN
   Future<void> CreateOrderUser(String orderID ,String email,String productID,String providerID,String name,String description,double price,int stock,bool groupEnabled, String status) async {
-    OrderModel newOrderUser = OrderModel(orderID: orderID,
+    OrderModel newOrderUser = OrderModel(
+  orderID: orderID,
      email: email, 
      productID: productID,
       providerID: providerID,
@@ -45,6 +76,10 @@ class OrdersViewmodel extends ChangeNotifier {
 
     await _orderActions.createOrder(newOrderUser);
   }
+
+
+
+
 
 
 }

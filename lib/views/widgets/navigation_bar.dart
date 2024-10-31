@@ -1,33 +1,32 @@
 // widgets/navigation_bar.dart
 import 'package:flutter/material.dart';
-
 class CustomNavigationBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
-  final String role;  // Añadimos el rol del usuario
+  final String role;
 
   const CustomNavigationBar({
     super.key,
     required this.currentIndex,
     required this.onTap,
-    required this.role,  // Recibimos el rol
+    required this.role,
   });
 
   @override
   Widget build(BuildContext context) {
-    List<BottomNavigationBarItem> _adminItems = [
+    List<BottomNavigationBarItem> adminItems = [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Admin Inicio'),
       BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Admin Perfil'),
       BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Admin Ajustes'),
     ];
 
-    List<BottomNavigationBarItem> _buyerItems = [
+    List<BottomNavigationBarItem> buyerItems = [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
       BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Compras'),
       BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Historial'),
     ];
 
-    List<BottomNavigationBarItem> _sellerItems = [
+    List<BottomNavigationBarItem> sellerItems = [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
       BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Mis Productos'),
       BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Ventas'),
@@ -37,16 +36,20 @@ class CustomNavigationBar extends StatelessWidget {
     List<BottomNavigationBarItem> items;
     switch (role) {
       case 'administrador':
-        items = _adminItems;
+        items = adminItems;
         break;
       case 'comprador':
-        items = _buyerItems;
+        items = buyerItems;
         break;
       case 'vendedor':
-        items = _sellerItems;
+        items = sellerItems;
         break;
       default:
-        items = [];
+        // Items por defecto en caso de rol desconocido
+        items = [
+          BottomNavigationBarItem(icon: Icon(Icons.error), label: 'Error'),
+          BottomNavigationBarItem(icon: Icon(Icons.error), label: 'Error'),
+        ];
     }
 
     return BottomNavigationBar(

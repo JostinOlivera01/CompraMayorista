@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:test01/business_logic/actions/User_actions/auth_actions.dart';
+import 'package:test01/business_logic/actions/User_actions/mercadoPago_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/product_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/purchaseOrder_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/usuarioStore_actions.dart';
 import 'package:test01/business_logic/service/authService.dart';
+import 'package:test01/business_logic/service/mercadoPagoService.dart';
 import 'package:test01/business_logic/service/orderService.dart';
 import 'package:test01/business_logic/service/productService.dart';
 import 'package:test01/business_logic/service/usuarioStoreService.dart';
@@ -37,8 +39,11 @@ void main() async {
           create: (_) => ProductViewModel(ProductActions(ProductStoreService())),
         ),
         ChangeNotifierProvider(
-          create: (_) => OrdersViewmodel(OrderActions(OrderStoreService())),
+          create: (_) => OrdersViewmodel(OrderActions(OrderStoreService()),OrderPaymentAction(MercadoPagoService())),
         ),
+        Provider<MercadoPagoService>(
+          create: (_) => MercadoPagoService(),
+        )
       ],
       child: MyApp(),
     ),
@@ -46,10 +51,14 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+final String? role; // Agregar un parámetro de rol
+
+  const MyApp({super.key, this.role}); // Constructor para recibir el rol
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/', // Definimos la ruta inicial
+      initialRoute: '/buyerHome', // Definimos la ruta inicial
       routes: {
         '/': (context) => InicioScreen(), // Pantalla inicial de la aplicación
         '/register': (context) => RegisterScreen(),

@@ -1,38 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 
-class PaymentWebView extends StatefulWidget {
+
+class PaymentWebView extends StatelessWidget {
   final String sandboxUrl;
 
-  const PaymentWebView({Key? key, required this.sandboxUrl}) : super(key: key);
-
-  @override
-  _PaymentWebViewState createState() => _PaymentWebViewState();
-}
-
-class _PaymentWebViewState extends State<PaymentWebView> {
-  late InAppWebViewController _webViewController;
+  const PaymentWebView({super.key, required this.sandboxUrl});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mercado Pago - Sandbox'),
+        title: const Text('Mercado Pago - Sandbox'),
       ),
-      body: InAppWebView(
-        initialUrlRequest: URLRequest(),
-        onWebViewCreated: (controller) {
-          _webViewController = controller;
-        },
-        onLoadStart: (controller, url) {
-          // Puedes manejar la carga inicial aquí
-          print("Cargando URL: $url");
-        },
-        onLoadStop: (controller, url) async {
-          // Puedes manejar el evento de cuando la carga se detiene
-          print("Carga completa de la URL: $url");
-        },
+      body: Center(
+        child: TextButton(
+          child: const Text('Abrir Mercado Pago Sandbox'),
+          onPressed: () async {
+            final result = await _launchURL(context, sandboxUrl);
+            Navigator.pop(context, result ? 'success' : 'failure');
+          },
+        ),
       ),
     );
+  }
+
+  Future<bool> _launchURL(BuildContext context, String url) async {
+    try {
+      Uri uri = Uri.parse(url);
+      await launchUrl(
+        uri,
+        customTabsOptions: CustomTabsOptions(
+          colorSchemes: CustomTabsColorSchemes.defaults(),
+          urlBarHidingEnabled: true,
+          shareState: CustomTabsShareState.browserDefault,
+          showTitle: true,
+        ),
+      );
+      return true;
+    } catch (e) {
+      debugPrint('Error al abrir la URL: $e');
+      return false;
+    }
   }
 }
