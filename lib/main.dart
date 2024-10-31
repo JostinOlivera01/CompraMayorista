@@ -16,7 +16,6 @@ import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 import 'package:test01/views/screen/Admin/admin_home_screen.dart';
 import 'package:test01/views/screen/Seller/seller_home_screen.dart';
 import 'views/screen/Buyer/buyer_layout_screen.dart';
-import 'views/screen/Authorization/login_screen.dart';
 import 'views/screen/Authorization/register_screen.dart';
 import 'views/screen/Authorization/inicio_screen.dart';
 
@@ -34,8 +33,8 @@ void main() async {
         ChangeNotifierProvider(
           create: (_) => UsuarioViewModel(UsuarioCaseStore(UsuarioStoreService())),
         ),
-         ChangeNotifierProvider(
-          create: (_) => ProductViewModel(ProductActions(ProductStoreService()))
+        ChangeNotifierProvider(
+          create: (_) => ProductViewModel(ProductActions(ProductStoreService())),
         ),
         ChangeNotifierProvider(
           create: (_) => OrdersViewmodel(OrderActions(OrderStoreService())),
@@ -47,18 +46,13 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-final String? role; // Agregar un parámetro de rol
-
-  MyApp({this.role}); // Constructor para recibir el rol
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/', // Definimos la ruta inicial
       routes: {
-        '/': (context) => InicioScreen(), // Pantalla inicial según el rol
+        '/': (context) => InicioScreen(), // Pantalla inicial de la aplicación
         '/register': (context) => RegisterScreen(),
-        '/login': (context) => LoginScreen(),
         '/buyerHome': (context) => MyHomePage(),
         '/adminHome': (context) => AdminHomeScreen(),
         '/sellerHome': (context) => SellerHomeScreen(),
@@ -66,4 +60,3 @@ final String? role; // Agregar un parámetro de rol
     );
   }
 }
-
