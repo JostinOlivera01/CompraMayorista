@@ -52,7 +52,7 @@ class RegisterScreen extends StatelessWidget {
                     selectedRole!, // Pasar el rol seleccionado
                     _emailController.text,
                   );
-                  Navigator.pushReplacementNamed(context, '/login');
+                  Navigator.pushReplacementNamed(context, '/');
                 } else {
                   // Mostrar alerta si no se selecciona el rol
                   showDialog(
