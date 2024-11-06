@@ -45,8 +45,7 @@ class UsuarioViewModel extends ChangeNotifier {
       registrationDate: DateTime.now(),
     );
     await _usercase.register(newUser);
-
-
+              notifyListeners();
   }
 
 Future<void> CreateProductUser(
@@ -75,6 +74,7 @@ Future<void> CreateProductUser(
   );
 
   await _usercase.createProduct(newProductUser);
+  notifyListeners();
 }
 
 

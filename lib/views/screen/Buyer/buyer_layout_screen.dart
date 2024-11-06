@@ -4,6 +4,7 @@ import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 import 'package:test01/views/screen/Buyer/homeBuyer_screen.dart';
 import 'package:test01/views/screen/Buyer/profile_screen.dart';
 import 'package:test01/views/screen/Buyer/purchase%20order.dart';
+import 'package:test01/views/screen/Buyer/widget/group_orders.dart';
 import 'package:test01/views/screen/Buyer/widget/shopping_cart.dart';
 import 'package:test01/views/widgets/navigation_bar.dart';
 
@@ -19,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _screens = [
     ProductListScreen(),
-    const ProfileScreen(),
+    GroupScreen(),
     OrdersScreen(),
   ];
 

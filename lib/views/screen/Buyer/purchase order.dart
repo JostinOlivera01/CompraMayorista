@@ -23,7 +23,7 @@ class OrdersScreen extends StatelessWidget {
             child: TabBarView(
               children: [
                 IndividualOrdersScreen(),
-                GroupOrdersScreen(),
+                GroupScreen(),
               ],
             ),
           ),

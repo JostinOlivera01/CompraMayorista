@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 import 'package:test01/views/screen/Buyer/buyer_layout_screen.dart';
 import 'package:test01/views/screen/Buyer/profile_screen.dart';
+import 'package:test01/views/screen/Seller/advertisements_screen.dart';
 import 'package:test01/views/screen/Seller/createproduct_screen.dart';
 import 'package:test01/views/screen/Seller/inventory_screen.dart';
 import 'package:test01/views/widgets/navigation_bar.dart';
@@ -22,7 +23,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
     // Añade aquí las pantallas reales que quieras mostrar en cada tab
     const CounterScreen(),
     const ProfileScreen(),
-    const CreateProductScreen(),
+    AnunciosPage(),
      InventoryScreen()
   ];
 

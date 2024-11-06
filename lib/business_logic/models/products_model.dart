@@ -6,15 +6,15 @@ class ProductModel {
   final String name;
   final String description;
   final double price;
-  final double? groupPrice;  // Si admite compra grupal
+  final double? groupPrice;
   final int? stock;
   final String? category;
   final String? imageURL;
   final bool groupEnabled;
-  final int? groupThreshold;  // Mínimo de compradores para activar compra grupal
+  final int? groupThreshold;  
   final DateTime? createdAt;
-  final int? minDirectPurchaseQuantity;  // Cantidad mínima para compra directa
-  final int? minGroupPurchaseQuantity;    // Cantidad mínima para compra grupal
+  final int? minDirectPurchaseQuantity;  
+  final int? minGroupPurchaseQuantity;    
 
   ProductModel({
     required this.productID,

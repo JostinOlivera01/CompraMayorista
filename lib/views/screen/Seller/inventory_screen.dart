@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:test01/business_logic/models/products_model.dart';
 import 'package:test01/viewmodels/Product_viewmodel/Product_viewmodel.dart';
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
+import 'package:test01/views/screen/Seller/create_advertisements_screen.dart';
 
 class InventoryScreen extends StatefulWidget {
   @override
@@ -16,8 +17,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
   Widget build(BuildContext context) {
     final productViewModel = Provider.of<ProductViewModel>(context);
     final emailViewModel = Provider.of<UsuarioViewModel>(context);
-    final email = emailViewModel.email ?? ''; // Valor por defecto si es nulo
-
+    final email = emailViewModel.email ?? '';
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -68,16 +68,82 @@ class _InventoryScreenState extends State<InventoryScreen> {
                   itemCount: products.length,
                   itemBuilder: (context, index) {
                     final product = products[index];
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 8.0),
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: ListTile(
-                        title: Text(product.name),
-                        subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
+                    return GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => CreateAnnouncementModal(product:product),
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        padding: const EdgeInsets.all(12.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.purple[100],
+                              child: Icon(
+                                Icons.shopping_cart,
+                                color: Colors.purple,
+                              ),
+                            ),
+                            SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    product.name,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    '\$${product.price.toStringAsFixed(2)}',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.green[700],
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    product.description ?? 'Sin descripción',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey[600],
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.grey[400],
+                              size: 16,
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

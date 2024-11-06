@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:test01/business_logic/actions/User_actions/ad_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/auth_actions.dart';
+import 'package:test01/business_logic/actions/User_actions/group_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/mercadoPago_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/product_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/purchaseOrder_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/usuarioStore_actions.dart';
+import 'package:test01/business_logic/service/advertisementsService.dart';
 import 'package:test01/business_logic/service/authService.dart';
+import 'package:test01/business_logic/service/groupService.dart';
 import 'package:test01/business_logic/service/mercadoPagoService.dart';
 import 'package:test01/business_logic/service/orderService.dart';
 import 'package:test01/business_logic/service/productService.dart';
 import 'package:test01/business_logic/service/usuarioStoreService.dart';
+import 'package:test01/viewmodels/Gruop_viewmodel/Group_viewmodel.dart';
 import 'package:test01/viewmodels/Product_viewmodel/Orders_viewmodel.dart';
 import 'package:test01/viewmodels/Product_viewmodel/Product_viewmodel.dart';
+import 'package:test01/viewmodels/Product_viewmodel/ad_viewmodel.dart';
 import 'package:test01/viewmodels/User_viewmodel/auth_viewmodel.dart';
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 import 'package:test01/views/screen/Admin/admin_home_screen.dart';
@@ -44,7 +50,13 @@ void main() async {
         ),
         Provider<MercadoPagoService>(
           create: (_) => MercadoPagoService(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (_) => GroupViewModel(GroupActions(GroupService()))
+          ),
+        ChangeNotifierProvider(
+          create: (_) => AdvertisementViewModel(AdvertisementActions(AdvertisementService()))
+          ),
       ],
       child: MyApp(),
     ),
