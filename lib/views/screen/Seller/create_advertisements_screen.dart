@@ -10,7 +10,7 @@ import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 class CreateAnnouncementModal extends StatefulWidget {
   final ProductModel product;
 
-  CreateAnnouncementModal({required this.product});
+  const CreateAnnouncementModal({super.key, required this.product});
 
   @override
   _CreateAnnouncementModalState createState() => _CreateAnnouncementModalState();
@@ -211,7 +211,8 @@ class _CreateAnnouncementModalState extends State<CreateAnnouncementModal> {
                 if (isGroupPurchase) {
                   // Crear anuncio grupal
                   final group = GroupModel(
-                    groupId: 'someGeneratedGroupId', // Asegúrate de generar o proporcionar un ID único
+                    adId: '',
+                    groupId: '', // Asegúrate de generar o proporcionar un ID único
                     productId: widget.product.productID ?? 'productIdNoDisponible',
                     productPrice: widget.product.groupPrice ?? widget.product.price ?? 0.0,
                     productName: widget.product.name ?? 'Nombre no disponible',

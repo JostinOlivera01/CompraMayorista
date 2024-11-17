@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:test01/viewmodels/Product_viewmodel/ad_viewmodel.dart';
 
 class AnunciosPage extends StatelessWidget {
-  const AnunciosPage({Key? key}) : super(key: key);
+  const AnunciosPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,7 @@ class AnunciosPage extends StatelessWidget {
             status: ad.status,
             members: ["sa","dsa"]
           );
-        }).toList(),
+        }),
       ],
     );
   }

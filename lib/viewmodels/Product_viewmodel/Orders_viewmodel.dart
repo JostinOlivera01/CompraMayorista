@@ -18,7 +18,7 @@ Future<String?> initiatePayment(String productName, int quantity, double price, 
     // Convertir el precio de double a int
     int priceInt = price.toInt();
 
-    print("Iniciando el proceso de pago para $productName, cantidad: $quantity, precio: $priceInt");
+    print("Iniciando el proceso de pago para $productName, cantidad: $quantity, precio: $priceInt, $emailComprador $emailVendedor $productID $orderID ");
 
     final paymentUrl = await _orderPaymentAction.createPaymentPreference(
       productName: productName,
@@ -73,22 +73,7 @@ Future<String?> initiatePayment(String productName, int quantity, double price, 
     }
   }
 
-  //CREA ORDEN DE USUARIO SE DUPLICA DE COLLECION PRODUCTO A ORDEN
-  Future<void> CreateOrderUser(String orderID ,String email,String productID,String providerID,String name,String description,double price,int stock,bool groupEnabled, String status) async {
-    OrderModel newOrderUser = OrderModel(
-  orderID: orderID,
-     email: email, 
-     productID: productID,
-      providerID: providerID,
-       name: name,
-        description: description,
-         price: price,
-          stock: stock, 
-          groupEnabled: groupEnabled,
-           status: status);
 
-    await _orderActions.createOrder(newOrderUser);
-  }
 
 
 

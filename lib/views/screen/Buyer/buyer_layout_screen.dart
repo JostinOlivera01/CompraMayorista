@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
-import 'package:test01/views/screen/Buyer/homeBuyer_screen.dart';
-import 'package:test01/views/screen/Buyer/profile_screen.dart';
 import 'package:test01/views/screen/Buyer/purchase%20order.dart';
-import 'package:test01/views/screen/Buyer/widget/group_orders.dart';
-import 'package:test01/views/screen/Buyer/widget/shopping_cart.dart';
+import 'package:test01/views/screen/Buyer/widget/cart_sheets.dart';
+import 'package:test01/views/screen/Buyer/group_orders.dart';
+import 'package:test01/views/widgets/advertisements.dart';
 import 'package:test01/views/widgets/navigation_bar.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -19,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    ProductListScreen(),
+    AdvertisementListScreen(),
     GroupScreen(),
     OrdersScreen(),
   ];
@@ -38,6 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // Método para abrir el Side Sheet
   void _openCartSideSheet(BuildContext context) {
+  final emailviewmodel  = Provider.of<UsuarioViewModel>(context, listen: false);
+
+    
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -49,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       builder: (context) {
-        return const CartSideSheet();
+        return CartSideSheet(buyerEmail: emailviewmodel.email ?? '');
       },
     );
   }

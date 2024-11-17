@@ -9,6 +9,8 @@ class AdvertisementService {
   Future<List<Ad>> getAllAdvertisements() async {
     try {
       QuerySnapshot snapshot = await _firestore.collection('Anuncios').get();
+      print("JOSTIN");
+
       return snapshot.docs.map((doc) => Ad.fromDocument(doc)).toList();
     } catch (e) {
       print('Error fetching advertisements: $e');
@@ -46,7 +48,11 @@ class AdvertisementService {
   Future<bool> createAdvertisementGroup(Ad advertisement, GroupModel group) async {
     try {
       // Crear el documento del grupo en Firestore
-      DocumentReference groupRef = await _firestore.collection('Groups').add(group.toFirestore());
+      DocumentReference groupRef = await _firestore.collection('Groups').add(
+        group.toFirestore()
+        
+        
+        );
 
       // Crear el anuncio con referencia al grupo y guardar el ID del anuncio
       DocumentReference adRef = await _firestore.collection('Anuncios').add({
@@ -65,6 +71,8 @@ class AdvertisementService {
 
       // Actualizar el documento de anuncio con su ID en Firestore
       await adRef.update({'adId': adRef.id});
+      await groupRef.update({'groupId':groupRef.id});
+      await groupRef.update({'adId':adRef.id});
 
       return true;
     } catch (e) {

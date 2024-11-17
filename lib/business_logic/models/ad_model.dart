@@ -13,6 +13,7 @@ class Ad {
   final double? precioProduct;
   final String status; 
   final String emailVendedor;
+  final String? refIdGroup;
 
   Ad({
      this.id, // Nuevo campo ID
@@ -27,6 +28,7 @@ class Ad {
     required this.status,
     required this.emailVendedor,
     required this.precioProduct,
+    this.refIdGroup
   });
 
   // Factory method para crear una instancia de Ad desde un documento Firestore
@@ -45,6 +47,8 @@ class Ad {
       status: data['status'],
       emailVendedor: data['emailVendedor'],
       precioProduct: data['precioProduct'],
+      refIdGroup: data['refIdGroup']
+
     );
   }
 
@@ -62,6 +66,7 @@ class Ad {
       'status': status,
       'emailVendedor': emailVendedor,
       'precioProduct': precioProduct,
+      'refIdGroup':refIdGroup
     };
   }
 }

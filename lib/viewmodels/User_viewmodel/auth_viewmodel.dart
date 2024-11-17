@@ -1,9 +1,7 @@
 // business_logic/view_model/auth_view_model.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 import 'package:test01/business_logic/actions/User_actions/auth_actions.dart';
-import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 
 
 class AuthViewModel extends ChangeNotifier {

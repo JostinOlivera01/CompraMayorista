@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test01/views/screen/Buyer/widget/group_orders.dart';
+import 'package:test01/views/screen/Buyer/group_orders.dart';
 import 'package:test01/views/screen/Buyer/widget/individual_orders.dart';
 
 class OrdersScreen extends StatelessWidget {
