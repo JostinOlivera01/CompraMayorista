@@ -25,7 +25,7 @@ class GroupViewModel extends ChangeNotifier {
     try {
       print("object");
       grupoEncontrado = await _groupActions.getgroupId(groupId!);
-      return   await _groupActions.getgroupId(groupId!);
+      return   await _groupActions.getgroupId(groupId);
     } catch (e) {
       print('Error al obtener el grupo con ID $groupId: $e');
       return null;

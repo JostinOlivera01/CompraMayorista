@@ -12,50 +12,92 @@ class GroupService {
 // Obtener los grupos en los que participa un integrante por su email
 Future<List<GroupModel>> fetchGroupsByEmail(String email) async {
   try {
+    // Obtener la colección de grupos
     QuerySnapshot snapshot = await _firestore.collection('Groups').get();
 
-    // Lista de grupos en los que participa el integrante
+    print('Email del integrante: $email');
     List<GroupModel> groups = [];
+
+    // Validar que hay documentos en la colección 'Groups'
+    if (snapshot.docs.isEmpty) {
+      print('No se encontraron grupos en la colección.');
+      return groups;
+    }
 
     // Iterar sobre cada documento de grupo
     for (var doc in snapshot.docs) {
+      // Validar que los datos del grupo no sean nulos
+      if (doc.data() == null || doc.data() is! Map<String, dynamic>) {
+        print('El documento del grupo está vacío o no es válido: ${doc.id}');
+        continue; // Saltar al siguiente documento
+      }
+
       // Convertir los datos del grupo
       Map<String, dynamic> groupData = doc.data() as Map<String, dynamic>;
-      GroupModel group = GroupModel.fromFirestore(groupData);
+      GroupModel group;
+      try {
+        group = GroupModel.fromFirestore(groupData);
+      } catch (e) {
+        print('Error al convertir el grupo con ID ${doc.id}: $e');
+        continue;
+      }
 
-      // Obtener la subcolección de integrantes
-      QuerySnapshot integrantesSnapshot = await _firestore
-          .collection('Groups')
-          .doc(doc.id)
-          .collection('integrantes')
-          .get();
+      // Obtener la subcolección 'integrantes'
+      QuerySnapshot integrantesSnapshot;
+      try {
+        integrantesSnapshot = await _firestore
+            .collection('Groups')
+            .doc(doc.id)
+            .collection('integrantes')
+            .get();
+      } catch (e) {
+        print('Error al obtener integrantes para el grupo ${doc.id}: $e');
+        continue;
+      }
 
-      // Convertir los documentos de integrantes a objetos IntegranteModel
+      // Validar que hay integrantes en la subcolección
+      if (integrantesSnapshot.docs.isEmpty) {
+        print('El grupo ${doc.id} no tiene integrantes.');
+        continue;
+      }
+
+      // Convertir documentos de integrantes a objetos IntegranteModel
       List<IntegranteModel> integrantes = integrantesSnapshot.docs.map((integranteDoc) {
-        return IntegranteModel.fromJson(
-          integranteDoc.id,
-          integranteDoc.data() as Map<String, dynamic>,
-        );
-      }).toList();
+        try {
+          return IntegranteModel.fromJson(
+            integranteDoc.id,
+            integranteDoc.data() as Map<String, dynamic>,
+          );
+        } catch (e) {
+          print('Error al convertir el integrante ${integranteDoc.id}: $e');
+          return IntegranteModel(id: "id", email: email, id_orden_compra: "id_orden_compra", stockComprado: 3, totalPagado: 3, user_profile: "user_profile"); // Ignorar el integrante inválido
+        }
+      }).where((integrante) => integrante != null).toList();
 
       // Asignar la lista de integrantes al grupo
       group.integrantes = integrantes;
 
-      // Verificar si el integrante está en este grupo
-      bool integranteEncontrado = integrantes.any((integrante) => integrante.email == email);
+      // Verificar si el email del integrante está en el grupo
+      bool integranteEncontrado = integrantes.any((integrante) => integrante?.email == email);
 
-      // Si el integrante pertenece al grupo, añadirlo a la lista
+      // Si pertenece al grupo, añadirlo a la lista
       if (integranteEncontrado) {
         groups.add(group);
       }
     }
 
+    // Validar si se encontraron grupos
+    if (groups.isEmpty) {
+      print('No se encontraron grupos para el email proporcionado: $email');
+    }
+
     return groups;
   } catch (e) {
-    print('Error al obtener los grupos por email del integrante: $e');
+    print('Error inesperado al obtener los grupos por email: $e');
     return [];
   }
 }
+
 
 
 
@@ -112,30 +154,36 @@ Future<GroupModel?> getGroupById(String groupId) async {
     // Obtener el documento del grupo
     DocumentSnapshot doc = await _firestore.collection('Groups').doc(groupId).get();
 
+
     if (doc.exists) {
       // Convertir datos del grupo
+          print(doc.exists);
+
       Map<String, dynamic> groupData = doc.data() as Map<String, dynamic>;
 
       // Obtener la subcolección de integrantes
-      QuerySnapshot integrantesSnapshot = await _firestore
-          .collection('Groups')
-          .doc(groupId)
-          .collection('integrantes')
-          .get();
+      // QuerySnapshot integrantesSnapshot = await _firestore
+      //     .collection('Groups')
+      //     .doc(groupId)
+      //     .collection('integrantes')
+      //     .get();
+
 
       // Convertir los documentos de integrantes a objetos IntegranteModel
-      List<IntegranteModel> integrantes = integrantesSnapshot.docs.map((integranteDoc) {
-        return IntegranteModel.fromJson(
-          integranteDoc.id,
-          integranteDoc.data() as Map<String, dynamic>,
-        );
-      }).toList();
+      // List<IntegranteModel> integrantes = integrantesSnapshot.docs.map((integranteDoc) {
+      //   return IntegranteModel.fromJson(
+      //     integranteDoc.id,
+      //     integranteDoc.data() as Map<String, dynamic>,
+      //   );
+      // }).toList();
 
-      print(integrantes.isEmpty);
+
+
+      //print(integrantes.isEmpty);
       print("----");
 
       // Agregar la lista de integrantes al modelo del grupo
-      return GroupModel.fromFirestore(groupData)..integrantes = integrantes;
+      return GroupModel.fromFirestore(groupData);
     }
     return null;
   } catch (e) {

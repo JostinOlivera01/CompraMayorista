@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
+import 'package:test01/views/widgets/ImageButton.dart';
 
 class CreateProductScreen extends StatefulWidget {
   const CreateProductScreen({super.key});
@@ -22,6 +23,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   final TextEditingController _minGroupQuantityController = TextEditingController();
 
   bool _groupEnabled = false; // Para habilitar o deshabilitar compra grupal
+  String? _imageUrl;  // Variable para almacenar la URL de la imagen subida
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,19 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              // Subir Imagen
+              ImageUploadButton(
+                folderPath: 'data',
+                onImageUploaded: (String imageUrl) {
+                  setState(() {
+                    _imageUrl = imageUrl;  // Guardar la URL en la variable
+                  });
+                },
+              ),
+
+              const SizedBox(height: 16),
+
               // Campo de texto para el nombre del producto
               TextField(
                 controller: _nameController,
@@ -158,7 +173,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         ? int.tryParse(_minGroupQuantityController.text) ?? 1 // Valor por defecto
         : 1; // Valor por defecto si la compra grupal no está habilitada
 
-    if (name.isEmpty || price <= 0 || stock <= 0 || minDirectQuantity <= 0) {
+    if (name.isEmpty || price <= 0 || stock <= 0 || minDirectQuantity <= 0 || _imageUrl == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Por favor, completa todos los campos.')),
       );
@@ -172,17 +187,17 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
       '1',
       email!,
       name,
-      description,
+      description, 
       price,
       _groupEnabled,
       stock,
       createdAt,
       minDirectQuantity, // Añadir cantidad mínima para compra directa
-      minGroupQuantity,  // Añadir cantidad mínima para compra grupal
-    );
+      minGroupQuantity,
+      _imageUrl ?? ''
+          );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Producto guardado exitosamente.')),
-    );
+    // Volver a la pantalla anterior
+    Navigator.pop(context);
   }
 }

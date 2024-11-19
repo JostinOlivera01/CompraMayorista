@@ -73,9 +73,10 @@ class _InventoryScreenState extends State<InventoryScreen> {
                     return GestureDetector(
                       onTap: () {
                         showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (context) => CreateAnnouncementModal(product:product),
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) =>
+                              CreateAnnouncementModal(product: product),
                         );
                       },
                       child: Container(
@@ -99,10 +100,17 @@ class _InventoryScreenState extends State<InventoryScreen> {
                             CircleAvatar(
                               radius: 30,
                               backgroundColor: Colors.purple[100],
-                              child: Icon(
-                                Icons.shopping_cart,
-                                color: Colors.purple,
-                              ),
+                              backgroundImage: product.imageURL != null &&
+                                      product.imageURL!.isNotEmpty
+                                  ? NetworkImage(product.imageURL!)
+                                  : null, // Si hay URL, la carga
+                              child: product.imageURL == null ||
+                                      product.imageURL!.isEmpty
+                                  ? Icon(
+                                      Icons.shopping_cart,
+                                      color: Colors.purple,
+                                    )
+                                  : null, // Si no hay URL, muestra el ícono
                             ),
                             SizedBox(width: 16),
                             Expanded(

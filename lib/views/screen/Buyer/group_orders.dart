@@ -34,7 +34,7 @@ class GroupScreen extends StatelessWidget {
             final group = groups[index];
 
             // Buscar integrante por email
-            final integrante = group.integrantes?.firstWhere(
+            final integrante = group.integrantes.firstWhere(
               (i) => i.email == emailViewModel.email,
               orElse: () => IntegranteModel(
                   email: '',
@@ -69,7 +69,7 @@ class GroupScreen extends StatelessWidget {
               child: GroupCard(
                 group: group,
                 status: 'Activo',
-                members: group.integrantes?.map((integrante) {
+                members: group.integrantes.map((integrante) {
                   return integrante.user_profile.isNotEmpty 
                       ? integrante.user_profile 
                       : 'https://img.freepik.com/vector-premium/circulo-usuario-circulo-gradiente-azul_78370-4727.jpg?w=740'; 

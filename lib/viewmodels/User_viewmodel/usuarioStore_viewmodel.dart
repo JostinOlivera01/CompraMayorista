@@ -59,6 +59,7 @@ Future<void> CreateProductUser(
   DateTime createdAt,
   int minDirectQuantity, //  para cantidad mínima de compra directa
   int minGroupQuantity,  // cantidad mínima de compra grupal
+  String imageURL
 ) async {
   ProductModel newProductUser = ProductModel(
     productID: productID,
@@ -70,7 +71,8 @@ Future<void> CreateProductUser(
     groupEnabled: groupEnabled,
     createdAt: createdAt,
     minDirectPurchaseQuantity: minDirectQuantity, // cantidad mínima de compra directa
-    minGroupPurchaseQuantity: minGroupQuantity,   // cantidad mínima de compra grupal
+    minGroupPurchaseQuantity: minGroupQuantity,   
+    imageURL: imageURL // cantidad mínima de compra grupal
   );
 
   await _usercase.createProduct(newProductUser);

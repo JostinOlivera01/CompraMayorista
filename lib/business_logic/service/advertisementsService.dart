@@ -9,7 +9,7 @@ class AdvertisementService {
   Future<List<Ad>> getAllAdvertisements() async {
     try {
       QuerySnapshot snapshot = await _firestore.collection('Anuncios').get();
-      print("JOSTIN");
+      print("JOSTIN ad2");
 
       return snapshot.docs.map((doc) => Ad.fromDocument(doc)).toList();
     } catch (e) {
@@ -36,6 +36,8 @@ class AdvertisementService {
 
       // Guardar el ID generado en el anuncio en Firestore
       await docRef.update({'adId': docRef.id});
+
+      print("JOSTIN AD");
 
       return true;
     } catch (e) {

@@ -9,6 +9,7 @@ import 'package:test01/business_logic/actions/User_actions/group_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/mercadoPago_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/product_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/purchaseOrder_actions.dart';
+import 'package:test01/business_logic/actions/User_actions/storage_actions.dart';
 import 'package:test01/business_logic/actions/User_actions/usuarioStore_actions.dart';
 import 'package:test01/business_logic/service/advertisementsService.dart';
 import 'package:test01/business_logic/service/authService.dart';
@@ -18,6 +19,7 @@ import 'package:test01/business_logic/service/groupService.dart';
 import 'package:test01/business_logic/service/mercadoPagoService.dart';
 import 'package:test01/business_logic/service/orderService.dart';
 import 'package:test01/business_logic/service/productService.dart';
+import 'package:test01/business_logic/service/storageService.dart';
 import 'package:test01/business_logic/service/usuarioStoreService.dart';
 import 'package:test01/viewmodels/Gruop_viewmodel/Group_viewmodel.dart';
 import 'package:test01/viewmodels/Product_viewmodel/Orders_viewmodel.dart';
@@ -25,6 +27,7 @@ import 'package:test01/viewmodels/Product_viewmodel/Product_viewmodel.dart';
 import 'package:test01/viewmodels/Product_viewmodel/ad_viewmodel.dart';
 import 'package:test01/viewmodels/Product_viewmodel/cart_viewmodel.dart';
 import 'package:test01/viewmodels/Product_viewmodel/factura_viewmodel.dart';
+import 'package:test01/viewmodels/Storage_viewmodel/storage_viewmodel.dart';
 import 'package:test01/viewmodels/User_viewmodel/auth_viewmodel.dart';
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 import 'package:test01/views/screen/Admin/admin_home_screen.dart';
@@ -69,7 +72,9 @@ void main() async {
         ChangeNotifierProvider(
           create: (_) => FacturaViewModel(FacturaActions(FacturaService())) 
           ),
-
+        ChangeNotifierProvider(
+          create: (_) => ImageViewModel(ImageActions(StorageService())),
+          ),
       ],
       child: MyApp(),
     ),
