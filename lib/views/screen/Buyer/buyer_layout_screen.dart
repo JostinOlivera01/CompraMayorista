@@ -24,9 +24,9 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   final List<Widget> _label = [
-    const Text("0"),
-    const Text("1"),
-    const Text("2"),
+    const Text("Anuncios"),
+    const Text("Grupos"),
+    const Text("Órdenes"),
   ];
 
   void _onTabTapped(int index) {
@@ -37,9 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // Método para abrir el Side Sheet
   void _openCartSideSheet(BuildContext context) {
-  final emailviewmodel  = Provider.of<UsuarioViewModel>(context, listen: false);
+    final emailviewmodel = Provider.of<UsuarioViewModel>(context, listen: false);
 
-    
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -56,39 +55,41 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: _label[_currentIndex],
-      actions: _currentIndex == 0 // Índice de ProductListScreen
-          ? [
-              IconButton(
-                icon: const Icon(Icons.shopping_cart),
-                onPressed: () => _openCartSideSheet(context),
-              ),
-            ]
-          : null,
-    ),
-    body: _screens[_currentIndex],
-    bottomNavigationBar: Consumer<UsuarioViewModel>(
-      builder: (context, usuarioViewModel, child) {
-        final role = usuarioViewModel.role ?? '';
-        return CustomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: _onTabTapped,
-          role: role,
-        );
-      },
-    ),
-  );
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: _currentIndex == 0
+            ? IconButton(
+                icon: const Icon(Icons.account_circle), // Ícono de usuario
+                onPressed: () {
+                  // Acción futura para "Mi Perfil"
+                },
+              )
+            : null, // Ícono de usuario solo en la primera pantalla
+        actions: [
+          if (_currentIndex == 0) // Ícono del carrito solo en la primera pantalla
+            IconButton(
+              icon: const Icon(Icons.shopping_cart),
+              onPressed: () => _openCartSideSheet(context),
+            ),
+        ],
+      ),
+      body: _screens[_currentIndex],
+      bottomNavigationBar: Consumer<UsuarioViewModel>(
+        builder: (context, usuarioViewModel, child) {
+          final role = usuarioViewModel.role ?? '';
+          return CustomNavigationBar(
+            currentIndex: _currentIndex,
+            onTap: _onTabTapped,
+            role: role,
+          );
+        },
+      ),
+    );
+  }
 }
-
-
-
-}
-
-
 
 
 
@@ -154,3 +155,14 @@ class _CounterScreenState extends State<CounterScreen> {
       );
   }
 }
+
+
+
+
+
+
+
+
+
+
+

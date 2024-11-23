@@ -32,6 +32,7 @@ class AdvertisementService {
         'minimumStock': advertisement.minimumStock,
         'status': advertisement.status,
         'emailVendedor': advertisement.emailVendedor,
+        'imgUrl': advertisement.imgUrl
       });
 
       // Guardar el ID generado en el anuncio en Firestore
@@ -69,6 +70,8 @@ class AdvertisementService {
         'status': advertisement.status,
         'emailVendedor': advertisement.emailVendedor,
         'refIdGroup': groupRef.id,
+        'imgUrl': advertisement.imgUrl
+
       });
 
       // Actualizar el documento de anuncio con su ID en Firestore

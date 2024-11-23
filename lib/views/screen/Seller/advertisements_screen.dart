@@ -29,9 +29,7 @@ class AnunciosPage extends StatelessWidget {
             _dropdownFilter(),
             const SizedBox(height: 16),
             _productsSection(adViewModel),
-            const SizedBox(height: 16),
-            _verMasButton(),
-          ],
+            const SizedBox(height: 16),          ],
         ),
       ),
     );
@@ -84,87 +82,111 @@ class AnunciosPage extends StatelessWidget {
             stock: ad.publishedStock,
             deadline: ad.publicationDate,
             status: ad.status,
-            members: ["sa","dsa"]
+            type: ad.publicationType, // Nuevo campo para el tipo de anuncio
+            members: ['dsds','dssd'],
+            imageUrl: ad.imgUrl
           );
         }),
       ],
     );
   }
 
-  Widget _productCard({
-    required String productName,
-    required double price,
-    required int stock,
-    required DateTime deadline,
-    required String status,
-    required List<String> members,
-  }) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: 30,
-              backgroundColor: Colors.grey[300],
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    productName,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text('\$$price'),
-                  Text('Stock: $stock'),
-                  Text('Fecha: ${DateFormat('dd/MM/yyyy').format(deadline)}'),
-                  Text('Estado: $status'),
-                  const Text('Integrantes:'),
-                  Row(
-                    children: members.map((url) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 4.0),
-                        child: CircleAvatar(
-                          radius: 12,
-                          backgroundImage: NetworkImage('https://img.freepik.com/foto-gratis/losas-pavimentacion-sobre-paletas-almacenamiento-mercancias-construccion-reparacion-entrega-venta-materiales-construccion_166373-3214.jpg?t=st=1730865945~exp=1730869545~hmac=9a835dbe6d5fbf20100bb20fd6049cc3771f99a0e370a6baf7e11ed357146bf1&w=996'),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ],
+Widget _productCard({
+  required String productName,
+  required double price,
+  required int stock,
+  required DateTime deadline,
+  required String status,
+  required String type, // Diferenciador para Individual y Grupal
+  required List<String> members,
+  String? imageUrl, // Agregar parámetro opcional para la URL de la imagen
+}) {
+  return Card(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    elevation: 2,
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 30,
+                backgroundColor: Colors.grey[300],
+                backgroundImage: imageUrl != null && imageUrl.isNotEmpty
+                    ? NetworkImage(imageUrl) // Mostrar imagen si hay URL válida
+                    : null, // Dejar vacío si no hay URL
+                child: imageUrl == null || imageUrl.isEmpty
+                    ? Icon(
+                        Icons.image_not_supported,
+                        color: Colors.grey,
+                      ) // Ícono de respaldo si no hay URL
+                    : null,
               ),
-            ),
-            const Icon(Icons.more_vert),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _verMasButton() {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          // Acción para cargar más productos
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.purple,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      productName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text('\$$price'),
+                    Text('Stock: $stock'),
+                    Text(
+                        'Fecha: ${DateFormat('dd/MM/yyyy').format(deadline)}'),
+                    Text('Estado: $status'),
+                  ],
+                ),
+              ),
+              // Agregar texto estilizado en lugar del ícono
+              _adTypeLabel(type),
+            ],
           ),
-        ),
-        child: const Text('Ver más'),
+          const SizedBox(height: 8),
+          const Text('Integrantes:'),
+          Row(
+            children: members.map((url) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 4.0),
+                child: CircleAvatar(
+                  radius: 12,
+                  backgroundImage: NetworkImage(url),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
+
+Widget _adTypeLabel(String type) {
+  final Color backgroundColor =
+      type == 'Individual' ? Colors.green : Colors.lightBlue;
+  final String labelText = type == 'Individual' ? 'Individual' : 'Grupal';
+
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+    decoration: BoxDecoration(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: Text(
+      labelText,
+      style: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
+}
 }

@@ -89,7 +89,7 @@ final String? role; // Agregar un parámetro de rol
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/buyerHome',
+      initialRoute: '/',
       routes: {
         '/': (context) => InicioScreen(), // Pantalla inicial según el rol
         '/register': (context) => RegisterScreen(),

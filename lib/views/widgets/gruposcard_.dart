@@ -30,7 +30,7 @@ class GroupCard extends StatelessWidget {
               radius: 30,
               backgroundColor: Colors.grey[300],
               backgroundImage: NetworkImage(
-                  'https://img.freepik.com/foto-gratis/losas-pavimentacion-sobre-paletas-almacenamiento-mercancias-construccion-reparacion-entrega-venta-materiales-construccion_166373-3214.jpg?t=st=1730865945~exp=1730869545~hmac=9a835dbe6d5fbf20100bb20fd6049cc3771f99a0e370a6baf7e11ed357146bf1&w=996'), // Imagen de ejemplo
+                  group.imgUrl ?? 'https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg'), // Imagen de ejemplo
             ),
             const SizedBox(width: 16),
             Expanded(

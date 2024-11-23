@@ -90,8 +90,7 @@ class _GroupPurchaseBottomSheetState extends State<GroupPurchaseBottomSheet> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15.0),
                     child: Image.network(
-                      'https://img.freepik.com/foto-gratis/donaciones-alimentos-recolectadas-caridad_23-2149230526.jpg?t=st=1731037377~exp=1731040977~hmac=a080f391330d18400a008c6c8a08adda9925689db290ad209049e6a1e6c9e079&w=996' ??
-                          'https://example.com/default_image.jpg',
+                      groupDetails?.imgUrl ?? ' https://firebasestorage.googleapis.com/v0/b/compras-mayoristas.firebasestorage.app/o/images%2F1731979281971?alt=media&token=6559ac9a-9672-47ce-9330-6f1f95d25f65',
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: 200,

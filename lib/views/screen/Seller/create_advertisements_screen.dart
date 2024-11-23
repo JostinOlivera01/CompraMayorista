@@ -59,7 +59,7 @@ class _CreateAnnouncementModalState extends State<CreateAnnouncementModal> {
                     borderRadius: BorderRadius.circular(12),
                     child: widget.product.imageURL != null
                         ? Image.network(
-                            'https://img.freepik.com/foto-gratis/losas-pavimentacion-sobre-paletas-almacenamiento-mercancias-construccion-reparacion-entrega-venta-materiales-construccion_166373-3214.jpg?t=st=1730865945~exp=1730869545~hmac=9a835dbe6d5fbf20100bb20fd6049cc3771f99a0e370a6baf7e11ed357146bf1&w=996',
+                            widget.product.imageURL!,
                             height: 150,
                             width: double.infinity,
                             fit: BoxFit.cover,
@@ -206,7 +206,8 @@ class _CreateAnnouncementModalState extends State<CreateAnnouncementModal> {
                   publicationType: 'Individual',
                   minimumStock: 3,
                   emailVendedor: usuarioViewModel.email ?? 'email no disponible',
-                  precioProduct: widget.product.price
+                  precioProduct: widget.product.price,
+                  imgUrl: widget.product.imageURL
                 );
                 if (isGroupPurchase) {
                   // Crear anuncio grupal
@@ -221,6 +222,7 @@ class _CreateAnnouncementModalState extends State<CreateAnnouncementModal> {
                     stockLimit: int.tryParse(stockLimitController.text) ?? widget.product.stock ?? 0,
                     minGroupPurchase: int.tryParse(minGroupPurchaseController.text) ?? 1,
                     deadline: selectedDeadline ?? DateTime.now().add(Duration(days: 7)), // Fecha límite seleccionada o por defecto
+                    imgUrl: widget.product.imageURL
                   );
                   await advertisementViewModel.createGroupAd(ad, group);
                 } else {

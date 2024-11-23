@@ -46,7 +46,7 @@ class AdCard extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 16 / 9, // Proporción de imagen ajustable
                 child: Image.network(
-                  'https://img.freepik.com/free-photo/still-life-graphic-design-office_23-2151345410.jpg?t=st=1731011093~exp=1731014693~hmac=15ce315f93b1e43178fecde6a19ecff5e6e9a3d639c53abc260f21c4e3d2e81d&w=996' ?? 'https://img.freepik.com/free-photo/still-life-graphic-design-office_23-2151345410.jpg?t=st=1731011093~exp=1731014693~hmac=15ce315f93b1e43178fecde6a19ecff5e6e9a3d639c53abc260f21c4e3d2e81d&w=996',
+                  ad.imgUrl ?? 'https://img.freepik.com/free-photo/still-life-graphic-design-office_23-2151345410.jpg?t=st=1731011093~exp=1731014693~hmac=15ce315f93b1e43178fecde6a19ecff5e6e9a3d639c53abc260f21c4e3d2e81d&w=996',
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Container(
                     color: Colors.grey[300],

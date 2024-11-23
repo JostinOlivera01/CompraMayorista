@@ -14,9 +14,10 @@ class Ad {
   final String status; 
   final String emailVendedor;
   final String? refIdGroup;
+  final String? imgUrl; // Nuevo campo para la URL de la imagen
 
   Ad({
-     this.id, // Nuevo campo ID
+    this.id, // Nuevo campo ID
     required this.productName,
     required this.description,
     required this.category,
@@ -28,7 +29,8 @@ class Ad {
     required this.status,
     required this.emailVendedor,
     required this.precioProduct,
-    this.refIdGroup
+    this.refIdGroup,
+    this.imgUrl, // Inicialización del nuevo campo
   });
 
   // Factory method para crear una instancia de Ad desde un documento Firestore
@@ -47,8 +49,8 @@ class Ad {
       status: data['status'],
       emailVendedor: data['emailVendedor'],
       precioProduct: data['precioProduct'],
-      refIdGroup: data['refIdGroup']
-
+      refIdGroup: data['refIdGroup'],
+      imgUrl: data['imgUrl'], // Extraer el nuevo campo desde Firestore
     );
   }
 
@@ -66,7 +68,8 @@ class Ad {
       'status': status,
       'emailVendedor': emailVendedor,
       'precioProduct': precioProduct,
-      'refIdGroup':refIdGroup
+      'refIdGroup': refIdGroup,
+      'imgUrl': imgUrl, // Guardar el nuevo campo en Firestore
     };
   }
 }
