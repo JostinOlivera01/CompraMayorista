@@ -9,6 +9,8 @@ class CartModel {
   final double amountToPay;        // Valor total a pagar por la compra
   final String? directPurchaseId;  // ID para compras directas (null en compras grupales)
   final String providerId;         // ID del proveedor
+  final String ImgUrl;         // Imagen Url
+
 
   CartModel({
     required this.cartId,
@@ -20,6 +22,7 @@ class CartModel {
     required this.amountToPay,
     this.directPurchaseId,
     required this.providerId,      // Nuevo campo obligatorio para el ID del proveedor
+    required this.ImgUrl
   });
 
   // Método para convertir el modelo a un mapa para guardar en Firestore
@@ -34,6 +37,7 @@ class CartModel {
       'amountToPay': amountToPay,
       'directPurchaseId': directPurchaseId,
       'providerId': providerId,      // Asegurarse de incluirlo aquí para Firestore
+      'ImgUrl': ImgUrl
     };
   }
 
@@ -49,6 +53,7 @@ class CartModel {
       amountToPay: (data['amountToPay'] != null ? (data['amountToPay'] as num).toDouble() : 0.0),
       directPurchaseId: data['directPurchaseId'],     // Puede ser null si no es una compra directa
       providerId: data['providerId'] ?? '',           // Inicializar el providerId desde Firestore
+      ImgUrl: data['ImgUrl'] ?? '', 
     );
   }
 }

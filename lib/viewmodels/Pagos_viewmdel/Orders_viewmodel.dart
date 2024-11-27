@@ -13,7 +13,7 @@ class OrdersViewmodel extends ChangeNotifier {
 
 
 
-Future<String?> initiatePayment(String productName, int quantity, double price, String emailComprador, String emailVendedor, String productID, String orderID) async {
+Future<String?> initiatePayment(String productName, int quantity, double price, String emailComprador, String emailVendedor, String productID, String orderID, String ImgUrl) async {
   try {
     // Convertir el precio de double a int
     int priceInt = price.toInt();
@@ -27,7 +27,8 @@ Future<String?> initiatePayment(String productName, int quantity, double price, 
       emailComprador: emailComprador,
       emailVendedor: emailVendedor,
       productID: productID,
-      orderID: orderID
+      orderID: orderID,
+      imgUrl: ImgUrl
 
     );
 

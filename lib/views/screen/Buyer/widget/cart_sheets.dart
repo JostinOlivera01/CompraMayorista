@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test01/viewmodels/Product_viewmodel/Orders_viewmodel.dart';
+import 'package:test01/viewmodels/Pagos_viewmdel/Orders_viewmodel.dart';
 import 'package:test01/viewmodels/Product_viewmodel/cart_viewmodel.dart';
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
 import 'package:test01/views/screen/Buyer/paymentMercado_screen.dart';
@@ -66,13 +66,16 @@ class _CartSideSheetState extends State<CartSideSheet> {
                                 cartItem.providerId,
                                 cartItem.providerId,
                                 cartItem.cartId,
+                                cartItem.ImgUrl
+
                               );
 
                               if (paymentUrl != null) {
                                 final result = await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => PaymentWebView(sandboxUrl: paymentUrl),
+                                    builder: (context) => PaymentWebView(sandboxUrl: paymentUrl,cartItem: cartItem),
+                                    // builder: (context) => InvoicePreviewScreen(),
                                   ),
                                 );
 

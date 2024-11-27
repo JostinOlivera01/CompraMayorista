@@ -49,7 +49,7 @@ class GroupModel {
   }
 
   // Factory para convertir datos de Firestore en una instancia de GroupModel
-  factory GroupModel.fromFirestore(Map<String, dynamic> data) {
+  factory GroupModel.fromFirestore(Map<String, dynamic> data, {List<IntegranteModel>? integrantes}) {
     return GroupModel(
       groupId: data['groupId'] ?? '',
       productId: data['productId'] ?? '',
@@ -62,6 +62,7 @@ class GroupModel {
       productName: data['productName'] ?? '',
       description: data['description'] ?? '',
       imgUrl: data['imgUrl'], // Extraer el nuevo campo desde Firestore
+      integrantes: integrantes ?? [], // Usamos los integrantes que se pasaron como parámetro
     );
   }
 

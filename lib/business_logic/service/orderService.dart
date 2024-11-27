@@ -37,7 +37,7 @@ Future<List<OrderModel>> getPaymentedProducts(String emailComprador) async {
       // Crea un nuevo documento sin guardar aún en Firestore y obtiene su ID
     DocumentReference cartDocRef = _firestore
         .collection('Carrito')
-        .doc(orders.email)
+        .doc(orders.buyerEmail)
         .collection('Individuales')
         .doc(); // Firestore generará el ID aquí
 

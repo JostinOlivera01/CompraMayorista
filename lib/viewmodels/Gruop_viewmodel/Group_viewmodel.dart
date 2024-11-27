@@ -23,8 +23,9 @@ class GroupViewModel extends ChangeNotifier {
   // Obtener un grupo específico por ID
   Future<GroupModel?> fetchGroupById(String? groupId) async {
     try {
-      print("object");
+      print("VALENTINA");
       grupoEncontrado = await _groupActions.getgroupId(groupId!);
+      print(grupoEncontrado);
       return   await _groupActions.getgroupId(groupId);
     } catch (e) {
       print('Error al obtener el grupo con ID $groupId: $e');

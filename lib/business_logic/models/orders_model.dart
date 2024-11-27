@@ -2,47 +2,56 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:test01/business_logic/models/products_model.dart';
 
 class OrderModel extends ProductModel {
-  final String orderID;  // ID de la orden de compra
-  final String status;  // Estado de la orden
-  final DateTime? orderCreationDate;  // Fecha de creación de la orden
-  final DateTime? paymentDate;  // Fecha de pago de la orden
-  final DateTime? dueDate;  // Fecha de vencimiento de la orden
-  final String email;
+  final String orderID; // ID de la orden de compra
+  final String title; // ID del carrito asociado
+  final String buyerEmail; // Email del comprador
+  final String providerEmail; // Email del proveedor
+  final int quantity; // Cantidad comprada
+  final int unit_price; // Precio unitario del producto
+  final String status; // Estado de la orden
+  final DateTime orderCreationDate; // Fecha de creación de la orden
+  @override
+  final DateTime createdAt; // Fecha de creación en Firestore
 
-OrderModel({
-  required this.orderID,
-  required this.email,
-  required super.productID,
-  required super.providerID,
-  required super.name,
-  required super.description,
-  required super.price,
-  super.groupPrice,
-  super.stock,
-  super.category,
-  super.imageURL,
-  required super.groupEnabled,
-  super.groupThreshold,
-  DateTime? createdAt,
-  required this.status,
-  this.orderCreationDate,
-  this.paymentDate,
-  this.dueDate,
-}) : super(
-        createdAt: createdAt ?? DateTime.now(),  // Fecha de creación por defecto
-      ); 
+  OrderModel({
+    required this.orderID,
+    required this.title,
+    required this.buyerEmail,
+    required this.providerEmail,
+    required this.quantity,
+    required this.unit_price,
+    required super.productID,
+    required super.providerID,
+    required super.name,
+    required super.description,
+    required super.price,
+    super.groupPrice,
+    super.stock,
+    super.category,
+    super.imageURL,
+    required super.groupEnabled,
+    super.groupThreshold,
+    required this.status,
+    required this.orderCreationDate,
+    required this.createdAt,
+  }) : super(
+          createdAt: createdAt, // Fecha de creación heredada del modelo base
+        );
 
   // Método para convertir la orden a formato Firestore
   @override
   Map<String, dynamic> toFirestore() {
     return {
       'orderID': orderID,
+      'title': title,
+      'buyerEmail': buyerEmail,
+      'providerEmail': providerEmail,
+      'quantity': quantity,
+      'unitPrice': unit_price,
       'status': status,
-      'email':email,
-      'orderCreationDate': orderCreationDate ?? DateTime.now(),
-      'paymentDate': paymentDate ?? DateTime.now(),
-      'dueDate': dueDate ?? DateTime.now(),
-      ...super.toFirestore(),  // Incluye los campos del modelo ProductModel
+      'orderCreationDate': orderCreationDate,
+      'createdAt': createdAt,
+      ...super.toFirestore(), // Incluye los campos del modelo ProductModel
     };
   }
 
@@ -50,7 +59,11 @@ OrderModel({
   factory OrderModel.fromFirestore(Map<String, dynamic> data) {
     return OrderModel(
       orderID: data['orderID'] ?? '',
-      email: data['email'] ?? '',
+      title: data['title'] ?? '',
+      buyerEmail: data['buyerEmail'] ?? '',
+      providerEmail: data['providerEmail'] ?? '',
+      quantity: data['quantity'] ?? 0,
+      unit_price: (data['unit_price']),
       productID: data['productID'] ?? '',
       providerID: data['providerID'] ?? '',
       name: data['name'] ?? '',
@@ -65,8 +78,6 @@ OrderModel({
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
       status: data['status'] ?? 'Pendiente', // Valor por defecto
       orderCreationDate: (data['orderCreationDate'] as Timestamp?)?.toDate() ?? DateTime.now(),
-      paymentDate:(data['paymentDate'] as Timestamp?)?.toDate() ?? DateTime.now(),
-      dueDate: (data['dueDate'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
 }

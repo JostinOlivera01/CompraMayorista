@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    AdvertisementListScreen(),
+    AdvertisementListScreen(), 
     GroupScreen(),
     OrdersScreen(),
   ];

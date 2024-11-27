@@ -71,6 +71,7 @@ class CartViewModel extends ChangeNotifier {
             amountToPay: updatedData['totalPrice'] ?? carts[index].amountToPay,
             directPurchaseId: updatedData['directPurchaseId'] ?? carts[index].directPurchaseId, 
             providerId: 'cdscds',
+            ImgUrl: updatedData['ImgUrl']
           );
           notifyListeners();
         }

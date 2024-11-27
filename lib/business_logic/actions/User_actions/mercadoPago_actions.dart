@@ -13,7 +13,8 @@ class OrderPaymentAction {
     required String emailComprador,
     required String emailVendedor,
     required String productID,
-    required String orderID
+    required String orderID,
+    required String imgUrl
 
   }) async {
     return await _mercadoPagoService.createPreference(
@@ -23,7 +24,8 @@ class OrderPaymentAction {
       emailComprador: emailComprador,
       emailVendedor: emailVendedor,
       productID: productID,
-      orderID: orderID
+      orderID: orderID,
+      imgUrl:imgUrl
     );
   }
 }

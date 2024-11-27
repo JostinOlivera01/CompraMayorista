@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class OrderCard extends StatelessWidget {
   final String productName;
   final String productImageUrl;
-  final double price;
+  final int price;
   final String status; // Estado de la orden
   final DateTime creationDate; // Fecha de creación de la orden
   final VoidCallback onTap; // Callback para manejar el tap
@@ -58,7 +58,7 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '\$${price.toStringAsFixed(2)}',
+                    '\$$price',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

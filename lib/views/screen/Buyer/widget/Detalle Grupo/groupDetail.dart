@@ -19,20 +19,34 @@ class GroupDetailWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Usuarios en $groupName', style: TextStyle(fontWeight: FontWeight.bold)),
-        Row(
+        // Título con el nombre del grupo y el número de integrantes
+        Text(
+          'Usuarios en Grupo (${participantImages.length})',
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        // Mostramos las imágenes de los integrantes
+        Wrap(
+          spacing: 4.0,
+          runSpacing: 4.0,
           children: participantImages.map((imageUrl) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2.0),
-              child: CircleAvatar(
-                backgroundImage: NetworkImage('https://img.freepik.com/vector-premium/circulo-usuario-circulo-gradiente-azul_78370-4727.jpg?w=740'),
-                radius: 15,
-              ),
+            return CircleAvatar(
+              backgroundImage: NetworkImage(imageUrl), // Usamos la imagen predeterminada
+              radius: 20,
             );
           }).toList(),
         ),
+        const SizedBox(height: 10),
+        // Información adicional del grupo
         Text('Cantidad Restante: $remainingQuantity'),
-        Text('Estado: $status', style: TextStyle(color: status == 'ABIERTO' ? Colors.green : Colors.red)),
+        Text(
+          'Stock Restante: $status',
+          style: TextStyle(
+            color: status.toUpperCase() == 'ABIERTO'
+                ? Colors.green
+                : const Color.fromARGB(255, 64, 207, 85),
+          ),
+        ),
         const Divider(),
       ],
     );

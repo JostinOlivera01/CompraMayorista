@@ -8,13 +8,13 @@ class MercadoPagoService {
   // Token de autenticación de Mercado Pago (actualiza con tu propio token si es necesario)
   final String accessToken = 'TEST-1922698037737235-101718-86b39d158359494d0c84eb4e03d16cf4-257537041';
 
-  Future<String> createPreference({required String title, required int quantity, required int unitPrice, required String emailComprador, required String emailVendedor, required String productID, required String orderID}) async {
+  Future<String> createPreference({required String title, required int quantity, required int unitPrice, required String emailComprador, required String emailVendedor, required String productID, required String orderID, required String imgUrl}) async {
     // Petición POST a la API de Mercado Pago
 
     int quantity1 = quantity;
     int unitPrice1 = unitPrice;
     final response = await http.post(
-      Uri.parse(backendUrl),
+      Uri.parse(backendUrl), 
       headers: {
         'Content-Type': 'application/json',
       },
@@ -23,10 +23,11 @@ class MercadoPagoService {
       "quantity": quantity,
       "unit_price": unitPrice,
       "currency_id": "CLP",
-       "emailC": emailComprador,
-        "emailP": emailVendedor,
+      "emailC": emailComprador,
+      "emailP": emailVendedor,
       "productID": emailVendedor,
-      "orderID":orderID
+      "orderID":orderID,
+      "imgUrl": imgUrl
       }),
     );
 

@@ -21,15 +21,25 @@ class CartCard extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            // Aquí puedes agregar una imagen si tienes un campo de imagen en el CartModel
-            Icon(Icons.shopping_cart, size: 40, color: Colors.blue),
+            // Imagen del producto
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                image: DecorationImage(
+                  image: NetworkImage(cartItem.ImgUrl), // URL de la imagen
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    cartItem.adId, // Aquí debe mostrarse el nombre del producto o su ID
+                    cartItem.Name, // Nombre del producto
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Text(

@@ -10,7 +10,7 @@ class Ad {
   final String publicationType;
   final int minimumPurchase;
   final int minimumStock;
-  final double? precioProduct;
+  final int? precioProduct;
   final String status; 
   final String emailVendedor;
   final String? refIdGroup;

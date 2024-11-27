@@ -206,7 +206,7 @@ class _CreateAnnouncementModalState extends State<CreateAnnouncementModal> {
                   publicationType: 'Individual',
                   minimumStock: 3,
                   emailVendedor: usuarioViewModel.email ?? 'email no disponible',
-                  precioProduct: widget.product.price,
+                  precioProduct: widget.product.price.toInt(),
                   imgUrl: widget.product.imageURL
                 );
                 if (isGroupPurchase) {
@@ -222,7 +222,8 @@ class _CreateAnnouncementModalState extends State<CreateAnnouncementModal> {
                     stockLimit: int.tryParse(stockLimitController.text) ?? widget.product.stock ?? 0,
                     minGroupPurchase: int.tryParse(minGroupPurchaseController.text) ?? 1,
                     deadline: selectedDeadline ?? DateTime.now().add(Duration(days: 7)), // Fecha límite seleccionada o por defecto
-                    imgUrl: widget.product.imageURL
+                    imgUrl: widget.product.imageURL ?? 'https://img.freepik.com/vector-premium/circulo-usuario-circulo-gradiente-azul_78370-4727.jpg?w=740',
+                    
                   );
                   await advertisementViewModel.createGroupAd(ad, group);
                 } else {

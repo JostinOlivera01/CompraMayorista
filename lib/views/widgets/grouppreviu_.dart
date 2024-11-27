@@ -72,7 +72,8 @@ class _GroupPurchaseBottomSheetState extends State<GroupPurchaseBottomSheet> {
       groupId:  widget.ad.refIdGroup,
       Name:  widget.ad.productName,
       buyerEmail: emailviewmodel.email ?? '', 
-      providerId: widget.ad.emailVendedor
+      providerId: widget.ad.emailVendedor,
+      ImgUrl: widget.ad.imgUrl ?? 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500'
     ));
   }
 

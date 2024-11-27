@@ -17,16 +17,19 @@ class IntegranteModel {
   });
 
   // Método para mapear desde un documento Firestore
-  factory IntegranteModel.fromJson(String id, Map<String, dynamic> json) {
-    return IntegranteModel(
-      id: id,
-      email: json['email'] as String,
-      id_orden_compra: json['id_orden_compra'] as String,
-      stockComprado: json['stock_comprado'] as int,
-      totalPagado: json['total_pagado'] as int,
-      user_profile: json['user_profile'] as String, // Aquí mapeamos la URL
-    );
-  }
+factory IntegranteModel.fromJson(String id, Map<String, dynamic> json) {
+  print('Mapeando IntegranteModel con datos: $json');
+
+  return IntegranteModel(
+    id: id,
+    email: json['email'] as String? ?? '',
+    id_orden_compra: json['id_orden_compra'] as String? ?? '',
+    stockComprado: json['stock_comprado'] as int? ?? 0,
+    totalPagado: json['total_pagado'] as int? ?? 0,
+    user_profile: json['user_profile'] as String? ?? '',
+  );
+}
+
 
   // Método para mapear a Firestore
   Map<String, dynamic> toJson() {

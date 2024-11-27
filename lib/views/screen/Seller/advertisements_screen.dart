@@ -78,7 +78,7 @@ class AnunciosPage extends StatelessWidget {
         ...adViewModel.advertisements.map((ad) {
           return _productCard(
             productName: ad.productName,
-            price: ad.precioProduct ?? 0.0,
+            price: ad.precioProduct ?? 0,
             stock: ad.publishedStock,
             deadline: ad.publicationDate,
             status: ad.status,
@@ -93,7 +93,7 @@ class AnunciosPage extends StatelessWidget {
 
 Widget _productCard({
   required String productName,
-  required double price,
+  required int price,
   required int stock,
   required DateTime deadline,
   required String status,

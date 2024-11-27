@@ -15,7 +15,8 @@ class CartService {
         'buyerEmail': cart.buyerEmail,
         'amountToPay': cart.amountToPay,
         'directPurchaseId': cart.directPurchaseId,
-        'providerId':cart.providerId
+        'providerId':cart.providerId,
+        'ImgUrl':cart.ImgUrl
       });
 
       // Guardar el ID generado en Firestore
