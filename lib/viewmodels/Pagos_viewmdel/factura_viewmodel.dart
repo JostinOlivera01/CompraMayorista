@@ -17,6 +17,7 @@ class FacturaViewModel extends ChangeNotifier {
     _setLoading(true);
     try {
       facturas = await _facturaActions.obtenerFacturasPorEmailProveedor(emailProveedor);
+      
       errorMessage = null;
     } catch (e) {
       errorMessage = 'Error al obtener facturas del proveedor';
@@ -30,6 +31,7 @@ class FacturaViewModel extends ChangeNotifier {
     try {
       facturas = await _facturaActions.obtenerFacturasPorEmailComprador(emailComprador);
       errorMessage = null;
+
     } catch (e) {
       errorMessage = 'Error al obtener facturas del comprador';
     }
@@ -42,6 +44,7 @@ class FacturaViewModel extends ChangeNotifier {
     try {
       facturas = await _facturaActions.obtenerTodasLasFacturas();
       errorMessage = null;
+
     } catch (e) {
       errorMessage = 'Error al obtener todas las facturas';
     }
@@ -49,18 +52,22 @@ class FacturaViewModel extends ChangeNotifier {
   }
 
   // Método para obtener una factura por ID de orden de compra
-  Future<void> cargarFacturaPorIdOrdenCompra(String idOrdenCompra) async {
+  Future<Factura?> cargarFacturaPorIdOrdenCompra(String idOrdenCompra) async {
     try {
       print("FACTURA");
-      print(idOrdenCompra);
-
+  
       facturaEncontrada = await _facturaActions.obtenerFacturaPorIdOrdenCompra(idOrdenCompra);
-      print(facturaEncontrada);
+      notifyListeners();
+      print("FACTURA TERMINADA");
 
-      errorMessage = facturaEncontrada != null ? null : 'Factura no encontrada';
+
+      return facturaEncontrada;
+
+
     } catch (e) {
       errorMessage = 'Error al obtener la factura por ID de orden de compra';
     }
+    return null;
   }
 
   // Método para establecer el estado de carga

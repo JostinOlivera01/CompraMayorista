@@ -98,7 +98,7 @@ class ResumenTabContent extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildActionButton('Ver Boleta', Colors.purple),
+                _buildActionButton('Solicitar Ayuda', const Color.fromARGB(255, 94, 213, 87)),
                 _buildActionButton('Abandonar Grupo', Colors.redAccent),
               ],
             ),

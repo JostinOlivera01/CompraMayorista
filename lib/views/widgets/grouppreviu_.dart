@@ -75,6 +75,8 @@ class _GroupPurchaseBottomSheetState extends State<GroupPurchaseBottomSheet> {
       providerId: widget.ad.emailVendedor,
       ImgUrl: widget.ad.imgUrl ?? 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png?20210521171500'
     ));
+
+      Navigator.pop(context);
   }
 
   @override
@@ -138,12 +140,15 @@ class _GroupPurchaseBottomSheetState extends State<GroupPurchaseBottomSheet> {
                   const SizedBox(height: 20),
 
                   // Botón de compra
+                  
                   ElevatedButton(
                     onPressed: _selectedQuantity <= groupDetails!.stockLimit
                         ? _addToCart
                         : null,
                     child: const Text('Añadir al carrito'),
+                    
                   ),
+                  
                 ],
               ),
             ),

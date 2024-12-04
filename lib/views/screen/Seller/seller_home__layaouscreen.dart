@@ -22,9 +22,9 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
   final List<Widget> _screens = [
     // Añade aquí las pantallas reales que quieras mostrar en cada tab
     const CounterScreen(),
-    const ProfileScreen(),
     AnunciosPage(),
-     InventoryScreen()
+     InventoryScreen(),
+     const ProfileScreen()
   ];
 
   final List<Widget> _label = [
@@ -58,7 +58,7 @@ class _SellerHomeScreenState extends State<SellerHomeScreen> {
                 );
               },
             ),
-          if ( _currentIndex == 3)
+          if ( _currentIndex == 2)
             IconButton(
                 icon: Icon(Icons.add), // Icono para agregar productos
                 onPressed: () {

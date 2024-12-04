@@ -9,16 +9,29 @@ class CartViewModel extends ChangeNotifier {
 
   CartViewModel(this._cartActions);
 
+  // Método para verificar si un carrito existe
+  Future<bool> doesCartExist(String cartId) async {
+    try {
+      isLoading = true;
+      bool exists = await _cartActions.doesCartExist(cartId);
+      return exists;
+    } catch (e) {
+      print('Error en CartViewModel - doesCartExist: $e');
+      return false;
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
   // Método para agregar un carrito
   Future<void> addCart(CartModel cart) async {
     try {
       isLoading = true;
       bool success = await _cartActions.addToCart(cart);
       
-      notifyListeners();
       if (success) {
         carts.add(cart);
-        notifyListeners();
       }
     } catch (e) {
       print('Error en CartViewModel - addCart: $e');
@@ -32,32 +45,22 @@ class CartViewModel extends ChangeNotifier {
   Future<void> fetchCartsByEmail(String buyerEmail) async {
     try {
       isLoading = true;
-      carts = await _cartActions.getCartsByEmail(buyerEmail); // Se obtiene la lista de carritos
-      notifyListeners();
+      carts = await _cartActions.getCartsByEmail(buyerEmail);
     } catch (e) {
       print('Error en CartViewModel - fetchCartsByEmail: $e');
       carts = [];
-      notifyListeners();
     } finally {
       isLoading = false;
       notifyListeners();
     }
   }
 
-
-
-
-
-
-
-
   // Método para actualizar un carrito
   Future<void> updateCart(String cartId, Map<String, dynamic> updatedData) async {
     try {
       isLoading = true;
-      notifyListeners();
-
       bool success = await _cartActions.updateCart(cartId, updatedData);
+
       if (success) {
         int index = carts.indexWhere((cart) => cart.cartId == cartId);
         if (index != -1) {
@@ -69,11 +72,10 @@ class CartViewModel extends ChangeNotifier {
             Name: updatedData['Name'] ?? carts[index].Name,
             buyerEmail: updatedData['buyerEmail'] ?? carts[index].buyerEmail,
             amountToPay: updatedData['totalPrice'] ?? carts[index].amountToPay,
-            directPurchaseId: updatedData['directPurchaseId'] ?? carts[index].directPurchaseId, 
-            providerId: 'cdscds',
-            ImgUrl: updatedData['ImgUrl']
+            directPurchaseId: updatedData['directPurchaseId'] ?? carts[index].directPurchaseId,
+            providerId: updatedData['providerId'] ?? carts[index].providerId,
+            ImgUrl: updatedData['ImgUrl'] ?? carts[index].ImgUrl,
           );
-          notifyListeners();
         }
       }
     } catch (e) {
@@ -88,12 +90,10 @@ class CartViewModel extends ChangeNotifier {
   Future<void> deleteCart(String cartId) async {
     try {
       isLoading = true;
-      notifyListeners();
-
       bool success = await _cartActions.deleteCart(cartId);
+
       if (success) {
         carts.removeWhere((cart) => cart.cartId == cartId);
-        notifyListeners();
       }
     } catch (e) {
       print('Error en CartViewModel - deleteCart: $e');

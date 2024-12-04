@@ -37,6 +37,7 @@ class MercadoPagoService {
       final data = jsonDecode(response.body);
       String preferenceUrl = data['url']; // URL para el checkout
 
+      
 
       return preferenceUrl; // Devuelve la URL de la preferencia creada
     } else {

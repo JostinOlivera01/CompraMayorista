@@ -1,17 +1,57 @@
+import 'dart:async'; // Importa para usar Completer
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
+import 'package:provider/provider.dart';
 import 'package:test01/business_logic/models/cart_model.dart';
+import 'package:test01/viewmodels/Product_viewmodel/cart_viewmodel.dart';
 
-class PaymentWebView extends StatelessWidget {
+class PaymentWebView extends StatefulWidget {
   final String sandboxUrl;
   final CartModel cartItem;
 
   const PaymentWebView({
-    super.key,
+    Key? key,
     required this.sandboxUrl,
     required this.cartItem,
-  });
+  }) : super(key: key);
+
+  @override
+  _PaymentWebViewState createState() => _PaymentWebViewState();
+}
+
+class _PaymentWebViewState extends State<PaymentWebView> with WidgetsBindingObserver {
+  bool isCartPending = true;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this); // Agrega el observador
+    _checkCartStatus(); // Verifica el estado del carrito al cargar
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this); // Elimina el observador
+    super.dispose();
+  }
+
+  // Detecta cambios en el estado del ciclo de vida de la app
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // Cuando la app vuelve a primer plano, verifica el estado del carrito
+      _checkCartStatus();
+    }
+  }
+
+  // Verifica el estado del carrito en el ViewModel
+  Future<void> _checkCartStatus() async {
+    final cartViewModel = Provider.of<CartViewModel>(context, listen: false);
+    bool exists = await cartViewModel.doesCartExist(widget.cartItem.cartId!);
+    setState(() {
+      isCartPending = exists; // Si existe, sigue pendiente; si no, está pagado
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +61,7 @@ class PaymentWebView extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context);  // Regresar a la pantalla anterior
+            Navigator.pop(context, 'reload'); // Indica que se debe recargar
           },
         ),
         title: const Text(
@@ -37,9 +77,9 @@ class PaymentWebView extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                'Estado: Pendiente de Pago',
+                isCartPending ? 'Estado: Pendiente de Pago' : 'Estado: PAGADO',
                 style: TextStyle(
-                  color: Colors.orangeAccent,
+                  color: isCartPending ? Colors.orangeAccent : Colors.green,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -49,7 +89,6 @@ class PaymentWebView extends StatelessWidget {
             _buildSectionTitle('Información del Producto'),
             _buildInfoBox(
               children: [
-                // Imagen del producto
                 Center(
                   child: Container(
                     width: 150,
@@ -57,24 +96,23 @@ class PaymentWebView extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
-                        image: NetworkImage(cartItem.ImgUrl),
+                        image: NetworkImage(widget.cartItem.ImgUrl),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(height: 10),
-                // Nombre del producto
                 Text(
-                  'Producto: ${cartItem.Name}',
+                  'Producto: ${widget.cartItem.Name}',
                   style: const TextStyle(fontSize: 16),
                 ),
                 Text(
-                  'Cantidad: ${cartItem.requestedStock}',
+                  'Cantidad: ${widget.cartItem.requestedStock}',
                   style: const TextStyle(fontSize: 16),
                 ),
                 Text(
-                  'Total: \$${cartItem.amountToPay.toStringAsFixed(2)}',
+                  'Total: \$${widget.cartItem.amountToPay.toStringAsFixed(2)}',
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -87,43 +125,36 @@ class PaymentWebView extends StatelessWidget {
             _buildSectionTitle('Información del Comprador'),
             _buildInfoBox(
               children: [
-                Text('Correo Electrónico: ${cartItem.buyerEmail}'),
-                Text('ID Proveedor: ${cartItem.providerId}'),
+                Text('Correo Electrónico: ${widget.cartItem.buyerEmail}'),
+                Text('ID Proveedor: ${widget.cartItem.providerId}'),
               ],
             ),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12.0,
-                    horizontal: 20.0,
+            if (isCartPending) // Mostrar el botón solo si el carrito está pendiente
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12.0,
+                      horizontal: 20.0,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                onPressed: () async {
-                  final result = await _launchURL(context, sandboxUrl);
-
-                  print("dataa3233222");
-                  print(result);
-                  if (!result) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Error al abrir la URL')),
-                    );
-                  }
-                },
-                child: const Text(
-                  'Ir a Pagar',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
+                  onPressed: () async {
+                    await _handlePaymentFlow(); // Maneja el flujo de pago
+                  },
+                  child: const Text(
+                    'Ir a Pagar',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),
@@ -164,9 +195,10 @@ class PaymentWebView extends StatelessWidget {
     );
   }
 
-  Future<bool> _launchURL(BuildContext context, String url) async {
+  // Manejo del flujo de pago
+  Future<void> _handlePaymentFlow() async {
+    Uri uri = Uri.parse(widget.sandboxUrl);
     try {
-      Uri uri = Uri.parse(url);
       await launchUrl(
         uri,
         customTabsOptions: CustomTabsOptions(
@@ -176,28 +208,10 @@ class PaymentWebView extends StatelessWidget {
           showTitle: true,
         ),
       );
-      print(uri);
-      return true;
     } catch (e) {
-      debugPrint('Error al abrir la URL: $e');
-      return false;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error al abrir la URL')),
+      );
     }
   }
-
-  // Función que maneja la redirección según el estado del pago
-  void _handleRedirect(BuildContext context, bool paymentSuccess) {
-
-    print("dscdscds");
-    print(paymentSuccess);
-    if (paymentSuccess) {
-      
-      // Navegar a la pantalla de éxito
-      context.go('/payment-success');
-    } else {
-      context.go('/payment-success');
-
-    }
-  }
-
-
 }

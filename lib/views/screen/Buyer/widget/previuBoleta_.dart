@@ -27,7 +27,7 @@ class InvoicePreviewScreen extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                'Estado: No Pagada',
+                'Detalle de Compra',
                 style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,

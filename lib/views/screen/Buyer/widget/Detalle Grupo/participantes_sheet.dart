@@ -4,7 +4,7 @@ import 'package:test01/business_logic/models/members_model.dart';
 class SideDrawerExample extends StatelessWidget {
   final List<IntegranteModel> participantes;
 
-  const SideDrawerExample({Key? key, required this.participantes}) : super(key: key);
+  const SideDrawerExample({super.key, required this.participantes});
 
   @override
   Widget build(BuildContext context) {

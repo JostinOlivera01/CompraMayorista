@@ -13,7 +13,6 @@ class AdvertisementViewModel extends ChangeNotifier {
   Future<List<Ad>> fetchAdvertisements() async {
     try {
       advertisements = await _advertisementActions.getAllAdvertisements();
-      notifyListeners(); // Notificar cambios en la vista
       return advertisements;
     } catch (e) {
       print('Error al obtener anuncios: $e');

@@ -112,7 +112,6 @@ class _GroupPurchaseContentState extends State<GroupPurchaseContent> with Single
                             participantImages: participantImages,
                           ),
                           const SizedBox(height: 20),
-                          _buildPhaseButton('Cuota de ingreso', 'VER BOLETA'),
                           _buildPhaseButton(
                             'Reclutamiento de compradores',
                             'VER PARTICIPANTES',
@@ -235,7 +234,6 @@ class _GroupPurchaseContentState extends State<GroupPurchaseContent> with Single
               ],
             ),
           ),
-          const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Center(

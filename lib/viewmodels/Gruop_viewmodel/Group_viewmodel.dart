@@ -26,7 +26,8 @@ class GroupViewModel extends ChangeNotifier {
       print("VALENTINA");
       grupoEncontrado = await _groupActions.getgroupId(groupId!);
       print(grupoEncontrado);
-      return   await _groupActions.getgroupId(groupId);
+      notifyListeners();
+      return grupoEncontrado;
     } catch (e) {
       print('Error al obtener el grupo con ID $groupId: $e');
       return null;

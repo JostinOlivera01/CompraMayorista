@@ -83,7 +83,7 @@ class AnunciosPage extends StatelessWidget {
             deadline: ad.publicationDate,
             status: ad.status,
             type: ad.publicationType, // Nuevo campo para el tipo de anuncio
-            members: ['dsds','dssd'],
+            members: [],
             imageUrl: ad.imgUrl
           );
         }),
@@ -151,7 +151,7 @@ Widget _productCard({
             ],
           ),
           const SizedBox(height: 8),
-          const Text('Integrantes:'),
+          const Text(''),
           Row(
             children: members.map((url) {
               return Padding(

@@ -15,8 +15,8 @@ class CartService {
         'buyerEmail': cart.buyerEmail,
         'amountToPay': cart.amountToPay,
         'directPurchaseId': cart.directPurchaseId,
-        'providerId':cart.providerId,
-        'ImgUrl':cart.ImgUrl
+        'providerId': cart.providerId,
+        'ImgUrl': cart.ImgUrl,
       });
 
       // Guardar el ID generado en Firestore
@@ -35,8 +35,6 @@ class CartService {
           .collection('Carts')
           .where('buyerEmail', isEqualTo: buyerEmail)
           .get();
-
-          print("JOSTIN1");
 
       return snapshot.docs
           .map((doc) => CartModel.fromFirestore(doc.data() as Map<String, dynamic>))
@@ -65,6 +63,25 @@ class CartService {
       return true;
     } catch (e) {
       print('Error deleting cart: $e');
+      return false;
+    }
+  }
+
+  // Verificar si un carrito existe en la colección por su cartId
+  Future<bool> doesCartExist(String cartId) async {
+    try {
+      DocumentSnapshot cartDoc = await _firestore.collection('Carts').doc(cartId).get();
+
+      // Verificar si el documento existe
+      if (cartDoc.exists) {
+        print('Cart with ID $cartId exists.');
+        return true;
+      } else {
+        print('Cart with ID $cartId does not exist.');
+        return false;
+      }
+    } catch (e) {
+      print('Error checking if cart exists: $e');
       return false;
     }
   }

@@ -19,8 +19,6 @@ class CartActions {
   // Obtener carritos por email del comprador
   Future<List<CartModel>> getCartsByEmail(String buyerEmail) async {
     try {
-      print("JOSTIN1");
-
       return await _cartService.getCartsByEmail(buyerEmail);
     } catch (e) {
       print('Error en CartActions - getCartsByEmail: $e');
@@ -44,6 +42,16 @@ class CartActions {
       return await _cartService.deleteCart(cartId);
     } catch (e) {
       print('Error en CartActions - deleteCart: $e');
+      throw Exception(e);
+    }
+  }
+
+  // Verificar si un carrito existe en Firestore
+  Future<bool> doesCartExist(String cartId) async {
+    try {
+      return await _cartService.doesCartExist(cartId);
+    } catch (e) {
+      print('Error en CartActions - doesCartExist: $e');
       throw Exception(e);
     }
   }

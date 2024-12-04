@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test01/viewmodels/User_viewmodel/usuarioStore_viewmodel.dart';
+import 'package:test01/views/screen/Buyer/profile_screen.dart';
 import 'package:test01/views/screen/Buyer/purchase%20order.dart';
 import 'package:test01/views/screen/Buyer/widget/cart_sheets.dart';
-import 'package:test01/views/screen/Buyer/group_orders.dart';
+import 'package:test01/views/screen/settings_screen.dart';
 import 'package:test01/views/widgets/advertisements.dart';
 import 'package:test01/views/widgets/navigation_bar.dart';
 
@@ -19,8 +20,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _screens = [
     AdvertisementListScreen(), 
-    GroupScreen(),
     OrdersScreen(),
+    ProfileScreen(),
   ];
 
   final List<Widget> _label = [

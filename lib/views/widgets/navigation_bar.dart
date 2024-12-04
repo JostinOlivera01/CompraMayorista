@@ -23,14 +23,14 @@ class CustomNavigationBar extends StatelessWidget {
     List<BottomNavigationBarItem> buyerItems = [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
       BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Compras'),
-      BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Historial'),
+      BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Perfil'),
     ];
 
     List<BottomNavigationBarItem> sellerItems = [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
       BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Mis Anuncios'),
-      BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Ventas'),
-      BottomNavigationBarItem(icon: Icon(Icons.inventory), label: 'Inventario'),
+      BottomNavigationBarItem(icon: Icon(Icons.inventory), label: 'Mi Inventario'),
+      BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Mi Perfil'),
     ];
 
     // Escoger los items basados en el rol

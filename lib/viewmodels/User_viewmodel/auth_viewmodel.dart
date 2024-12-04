@@ -20,8 +20,6 @@ class AuthViewModel extends ChangeNotifier {
   Future<void> signOut(context) async {
     await _authUseCase.signOut();
     notifyListeners();
-
-
   }
 
   Future<void> login(String email, String password) async {

@@ -32,7 +32,8 @@ class AdvertisementService {
         'minimumStock': advertisement.minimumStock,
         'status': advertisement.status,
         'emailVendedor': advertisement.emailVendedor,
-        'imgUrl': advertisement.imgUrl
+        'imgUrl': advertisement.imgUrl,
+        'precioProduct' : advertisement.precioProduct
       });
 
       // Guardar el ID generado en el anuncio en Firestore
@@ -70,7 +71,8 @@ class AdvertisementService {
         'status': advertisement.status,
         'emailVendedor': advertisement.emailVendedor,
         'refIdGroup': groupRef.id,
-        'imgUrl': advertisement.imgUrl
+        'imgUrl': advertisement.imgUrl,
+        'precioProduct': group.productPrice.toInt()
 
       });
 

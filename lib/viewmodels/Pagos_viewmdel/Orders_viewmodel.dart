@@ -32,6 +32,8 @@ Future<String?> initiatePayment(String productName, int quantity, double price, 
 
     );
 
+    notifyListeners();
+
     return paymentUrl;
   } catch (e) {
     print('Error en el proceso de pago: $e');
